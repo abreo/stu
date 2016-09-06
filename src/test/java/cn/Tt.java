@@ -3,6 +3,7 @@ package cn;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.nihao.dao.LogindataMapper;
 import com.nihao.dao.impl.CommonDao;
+import com.nihao.model.Logindata;
 import com.nihao.service.TestServiceI;
 
 @RunWith(SpringJUnit4ClassRunner.class) 
@@ -31,8 +33,16 @@ public class Tt {
 	 
 	 @Test
 	 public void tttttt(){
-		 List l=commonDao.selectListByParam("com.nihao.dao.UserMapper.selectAll", new HashMap());
+		 //List l=commonDao.selectListByParam("com.nihao.dao.UserMapper.selectAll", new HashMap());
+		 //System.out.println(l);
+		 RowBounds rb=new RowBounds(2, 2);
+		 Long l=commonDao.countByParam("com.nihao.dao.LogindataMapper.countAll", new HashMap());
 		 System.out.println(l);
+		 List<Object> list=commonDao.selectListByParamPagenation("com.nihao.dao.LogindataMapper.selectList", new HashMap(), rb);
+		 for(Object o:list){
+			 Logindata lo=(Logindata)o;
+			 System.out.println("---:"+lo.getId());
+		 }
 	 }
 
 

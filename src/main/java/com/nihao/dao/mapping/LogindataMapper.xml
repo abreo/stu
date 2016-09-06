@@ -94,4 +94,7 @@
   <select id="countAll" resultType="java.lang.Long" >
     select count(*) from logindata
   </select>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select * from logindata
+  </select>
 </mapper>
