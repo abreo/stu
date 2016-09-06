@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nihao.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.nihao.model.Role" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="rolenname" property="rolenname" jdbcType="VARCHAR" />
+    <result column="iconcls" property="iconcls" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="cdatetime" property="cdatetime" jdbcType="TIMESTAMP" />
+    <result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, rolenname, iconcls, description, seq, cdatetime, udatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nihao.model.Role" >
+    insert into role (id, rolenname, iconcls, 
+      description, seq, cdatetime, 
+      udatetime)
+    values (#{id,jdbcType=INTEGER}, #{rolenname,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{cdatetime,jdbcType=TIMESTAMP}, 
+      #{udatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nihao.model.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rolenname != null" >
+        rolenname,
+      </if>
+      <if test="iconcls != null" >
+        iconcls,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="seq != null" >
+        seq,
+      </if>
+      <if test="cdatetime != null" >
+        cdatetime,
+      </if>
+      <if test="udatetime != null" >
+        udatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rolenname != null" >
+        #{rolenname,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null" >
+        #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="cdatetime != null" >
+        #{cdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udatetime != null" >
+        #{udatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nihao.model.Role" >
+    update role
+    <set >
+      <if test="rolenname != null" >
+        rolenname = #{rolenname,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null" >
+        iconcls = #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="cdatetime != null" >
+        cdatetime = #{cdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udatetime != null" >
+        udatetime = #{udatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nihao.model.Role" >
+    update role
+    set rolenname = #{rolenname,jdbcType=VARCHAR},
+      iconcls = #{iconcls,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      cdatetime = #{cdatetime,jdbcType=TIMESTAMP},
+      udatetime = #{udatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
