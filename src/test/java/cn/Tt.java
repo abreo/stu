@@ -48,15 +48,15 @@ public class Tt {
 
 	 @Test
 	 public void test() throws Exception{
-		 String s=service.getTestById(1);
-		 System.out.println(s);
-		 
-		 SqlSession session=SqlSessionUtils.getSqlSession(sqlSessionFactory.getObject());
-		 PageBounds pageBounds = new PageBounds(1, 2);
-		 List list=session.selectList("com.nihao.dao.UserMapper.selectAll",new HashMap(),pageBounds);
-		 System.out.println(list.size());
-		 
-		 System.out.println(logindataMapper.countAll());
+//		 String s=service.getTestById(1);
+//		 System.out.println(s);
+//		 
+//		 SqlSession session=SqlSessionUtils.getSqlSession(sqlSessionFactory.getObject());
+//		 PageBounds pageBounds = new PageBounds(1, 2);
+//		 List list=session.selectList("com.nihao.dao.UserMapper.selectAll",new HashMap(),pageBounds);
+//		 System.out.println(list.size());
+//		 
+//		 System.out.println(logindataMapper.countAll());
 	 }
 	
 }

@@ -1,17 +1,9 @@
 package com.nihao.dao;
 
+import java.util.Map;
+
 import com.nihao.model.User;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    User selectOneByLoginnameAndPwd(Map map);
 }
