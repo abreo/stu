@@ -7,9 +7,14 @@
     <result column="iconcls" property="iconcls" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="seq" property="seq" jdbcType="INTEGER" />
-    <result column="organizationid" property="organizationid" jdbcType="INTEGER" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
     <result column="cdatetime" property="cdatetime" jdbcType="TIMESTAMP" />
     <result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
   </resultMap>
-  
+  <select id="selectListByUserId" resultType="com.nihao.model.Organization" parameterType="java.lang.Integer">
+  select a.* 
+  from organization a,user2organization b
+  where a.id=b.organizationid
+  and b.userid=#{userId,jdbcType=INTEGER} 
+  </select>
 </mapper>

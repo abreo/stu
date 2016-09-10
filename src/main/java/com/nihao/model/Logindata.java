@@ -1,9 +1,15 @@
 package com.nihao.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Logindata {
-    private Integer id;
+public class Logindata implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6505861223664630618L;
+
+	private Integer id;
 
     private String loginname;
 

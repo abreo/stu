@@ -1,9 +1,11 @@
 package com.nihao.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Resource {
-    private Integer id;
+public class Resource implements Serializable{
+
+	private Integer id;
 
     private String resourcename;
 
@@ -17,7 +19,7 @@ public class Resource {
 
     private Integer rtype;
 
-    private Integer resourceid;
+    private Integer parentid;
 
     private Date cdatetime;
 
@@ -79,15 +81,15 @@ public class Resource {
         this.rtype = rtype;
     }
 
-    public Integer getResourceid() {
-        return resourceid;
-    }
+    public Integer getParentid() {
+		return parentid;
+	}
 
-    public void setResourceid(Integer resourceid) {
-        this.resourceid = resourceid;
-    }
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
+	}
 
-    public Date getCdatetime() {
+	public Date getCdatetime() {
         return cdatetime;
     }
 

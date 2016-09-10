@@ -1,9 +1,15 @@
 package com.nihao.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Role {
-    private Integer id;
+public class Role implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 270456076875502410L;
+
+	private Integer id;
 
     private String rolenname;
 

@@ -9,9 +9,23 @@
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="seq" property="seq" jdbcType="INTEGER" />
     <result column="rtype" property="rtype" jdbcType="INTEGER" />
-    <result column="resourceid" property="resourceid" jdbcType="INTEGER" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
     <result column="cdatetime" property="cdatetime" jdbcType="TIMESTAMP" />
     <result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
+  <!-- <select id="selectListByUserId" resultType="com.nihao.model.Resource" parameterType="java.lang.Integer">
+  select a.*
+  from resource a,role b,role2resource c,user2role d 
+  where a.id=c.resourceid and b.id=c.roleid and b.id=d.roleid
+  and d.userid=#{userId,jdbcType=INTEGER} 
+  </select> -->
+  
+  <select id="selectListByRoleId" resultType="com.nihao.model.Resource" parameterType="java.lang.Integer">
+  select a.* 
+  from resource a,role2resource b
+  where a.id=b.resourceid
+  and b.roleid=#{roleId,jdbcType=INTEGER} 
+  </select>
   
 </mapper>

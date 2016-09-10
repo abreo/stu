@@ -4,19 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.nihao.dao.LogindataMapper;
 import com.nihao.dao.impl.CommonDao;
 import com.nihao.model.Logindata;
+import com.nihao.model.view.ResourceVO;
+import com.nihao.service.ResourceServiceI;
 import com.nihao.service.TestServiceI;
 
 @RunWith(SpringJUnit4ClassRunner.class) 
@@ -30,6 +29,8 @@ public class Tt {
 	 private LogindataMapper logindataMapper; 
 	 @Autowired 
 	 private CommonDao commonDao;
+	 @Autowired 
+	 private ResourceServiceI resourceService;
 	 
 	 @Test
 	 public void tttttt(){
@@ -48,15 +49,17 @@ public class Tt {
 
 	 @Test
 	 public void test() throws Exception{
-//		 String s=service.getTestById(1);
-//		 System.out.println(s);
-//		 
-//		 SqlSession session=SqlSessionUtils.getSqlSession(sqlSessionFactory.getObject());
-//		 PageBounds pageBounds = new PageBounds(1, 2);
-//		 List list=session.selectList("com.nihao.dao.UserMapper.selectAll",new HashMap(),pageBounds);
-//		 System.out.println(list.size());
-//		 
-//		 System.out.println(logindataMapper.countAll());
+		 List<ResourceVO> list=resourceService.selectListByRoleId(0);
+		 for(int i=0;i<list.size();i++){
+			 ResourceVO vo=list.get(i);
+			 System.out.println("a:"+vo.getId()+":"+vo.getResourcename());
+			 List<ResourceVO> li=vo.getChildren();
+			 if(li!=null){
+				 for(ResourceVO v:li){
+					 System.out.println("     b:"+v.getId()+":"+v.getResourcename());
+				 }
+			 }
+		 }
 	 }
 	
 }

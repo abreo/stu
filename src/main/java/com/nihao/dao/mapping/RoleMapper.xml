@@ -11,4 +11,11 @@
     <result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   
+  <select id="selectListByUserId" resultType="com.nihao.model.Role" parameterType="java.lang.Integer">
+  select a.*
+  from role a,user2role b
+  where a.id=b.roleid
+  and b.userid=#{userId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>

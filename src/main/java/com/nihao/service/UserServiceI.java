@@ -1,7 +1,7 @@
 package com.nihao.service;
 
-import java.util.Map;
+import com.nihao.model.view.UserVO;
 
 public interface UserServiceI {
-	public Map login(String loginname,String pwd);
+	public UserVO login(String loginname,String pwd);
 }

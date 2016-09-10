@@ -1,9 +1,11 @@
 package com.nihao.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Organization {
-    private Integer id;
+public class Organization implements Serializable{
+
+	private Integer id;
 
     private String organizationname;
 
@@ -12,8 +14,8 @@ public class Organization {
     private String description;
 
     private Integer seq;
-
-    private Integer organizationid;
+    
+    private Integer parentid;
 
     private Date cdatetime;
 
@@ -59,15 +61,15 @@ public class Organization {
         this.seq = seq;
     }
 
-    public Integer getOrganizationid() {
-        return organizationid;
-    }
+    public Integer getParentid() {
+		return parentid;
+	}
 
-    public void setOrganizationid(Integer organizationid) {
-        this.organizationid = organizationid;
-    }
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
+	}
 
-    public Date getCdatetime() {
+	public Date getCdatetime() {
         return cdatetime;
     }
 
