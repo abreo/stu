@@ -13,6 +13,16 @@ public class UserVO {
 	private List<RoleVO> roles;
 	
 	private List<OrganizationVO> organizations;
+	
+	private List<ResourceVO> resources;
+
+	public List<ResourceVO> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<ResourceVO> resources) {
+		this.resources = resources;
+	}
 
 	public User getInfo() {
 		return info;

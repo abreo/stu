@@ -21,10 +21,7 @@ import com.nihao.util.MD5Util;
 public class UserServiceImpl implements UserServiceI {
 	@Autowired
 	private UserMapper userMapper;
-	@Autowired
-	private RoleServiceI roleService;
-	@Autowired
-	private OrganizationServiceI organizationService;
+
 
 	@Override
 	public UserVO login(String loginname, String pwd) {
@@ -33,13 +30,7 @@ public class UserServiceImpl implements UserServiceI {
 		map.put("pwd", MD5Util.md5(pwd));
 		User user=userMapper.selectOneByLoginnameAndPwd(map);
 		UserVO vo=new UserVO();
-		if(user!=null){
-			List<RoleVO> roleList=roleService.selectListByUserId(user.getId());
-			vo.setRoles(roleList);
-			List<OrganizationVO> orList=organizationService.selectListByUserId(user.getId());
-			vo.setOrganizations(orList);
-			vo.setInfo(user);
-		}
+		vo.setInfo(user);
 		return vo;
 	}
 

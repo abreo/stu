@@ -24,16 +24,19 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		List<Resource> list=resourceMapper.selectListByRoleId(roleId);
 		Iterator<Resource> it=list.iterator();
 		List<ResourceVO> voList=new ArrayList<>();
+//		while(it.hasNext()){
+//			Resource re=it.next();
+//			if(re.getParentid()==null){
+//				voList.add(new ResourceVO(re));
+//				it.remove();
+//			}
+//		}
+//		
+//		for(ResourceVO vo:voList){
+//			ZuZhuangUtil.zuZhuang(list, vo, ResourceVO.class);
+//		}
 		while(it.hasNext()){
-			Resource re=it.next();
-			if(re.getParentid()==null){
-				voList.add(new ResourceVO(re));
-				it.remove();
-			}
-		}
-		
-		for(ResourceVO vo:voList){
-			ZuZhuangUtil.zuZhuang(list, vo, ResourceVO.class);
+			voList.add(new ResourceVO(it.next()));
 		}
 		return voList;
 	}
