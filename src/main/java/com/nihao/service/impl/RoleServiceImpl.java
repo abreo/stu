@@ -1,12 +1,12 @@
 package com.nihao.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nihao.dao.ResourceMapper;
 import com.nihao.dao.RoleMapper;
 import com.nihao.model.Role;
 import com.nihao.model.view.ResourceVO;
@@ -20,20 +20,31 @@ public class RoleServiceImpl implements RoleServiceI{
 	
 	@Autowired
 	private RoleMapper roleMapper;
-	@Autowired
-	private ResourceServiceI resourceService;
+//	@Autowired
+//	private ResourceServiceI resourceService;
+//
+//	@Override
+//	public List<RoleVO> selectListByUserId(Integer userId) {
+//		List<Role> list=roleMapper.selectListByUserId(userId);
+//		List<RoleVO> voList=new ArrayList<>();
+//		for(Role role:list){
+//			List<ResourceVO> reList=resourceService.selectListByRoleId(role.getId());
+//			RoleVO vo=new RoleVO(role);
+//			vo.setResources(reList);
+//			voList.add(vo);
+//		}
+//		InsertSort.sort(voList);
+//		return voList;
+//	}
 
 	@Override
 	public List<RoleVO> selectListByUserId(Integer userId) {
 		List<Role> list=roleMapper.selectListByUserId(userId);
 		List<RoleVO> voList=new ArrayList<>();
 		for(Role role:list){
-			List<ResourceVO> reList=resourceService.selectListByRoleId(role.getId());
-			RoleVO vo=new RoleVO(role);
-			vo.setResources(reList);
-			voList.add(vo);
+			voList.add(new RoleVO(role));
 		}
-		InsertSort.sort(voList);
+		Collections.sort(voList);
 		return voList;
 	}
 

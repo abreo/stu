@@ -14,12 +14,12 @@
     <result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   
-  <!-- <select id="selectListByUserId" resultType="com.nihao.model.Resource" parameterType="java.lang.Integer">
+  <select id="selectListByUserId" resultType="com.nihao.model.Resource" parameterType="java.lang.Integer">
   select a.*
   from resource a,role b,role2resource c,user2role d 
   where a.id=c.resourceid and b.id=c.roleid and b.id=d.roleid
   and d.userid=#{userId,jdbcType=INTEGER} 
-  </select> -->
+  </select>
   
   <select id="selectListByRoleId" resultType="com.nihao.model.Resource" parameterType="java.lang.Integer">
   select a.* 

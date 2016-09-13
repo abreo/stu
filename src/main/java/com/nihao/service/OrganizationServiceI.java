@@ -5,5 +5,10 @@ import java.util.List;
 import com.nihao.model.view.OrganizationVO;
 
 public interface OrganizationServiceI {
-	public List<OrganizationVO> selectListByUserId(Integer userId);
+	/**
+	 * 根据用户id获取机构
+	 * @param userId
+	 * @return
+	 */
+	List<OrganizationVO> selectListByUserId(Integer userId);
 }

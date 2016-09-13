@@ -1,5 +1,7 @@
 package com.nihao.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nihao.model.view.ResourceVO;
-import com.nihao.model.view.RoleVO;
 import com.nihao.model.view.UserVO;
 
 public class SecurityInterceptor implements HandlerInterceptor{
@@ -44,17 +45,12 @@ public class SecurityInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object obj) throws Exception {
-		String path=request.getServletPath();
+		String path=request.getServletPath().replaceAll(".htm", "");
 		logger.info("进入安全拦截器，请求地址："+path);
-		UserVO vo=(UserVO)request.getSession().getAttribute("INFO");
+		UserVO vo=(UserVO)request.getSession().getAttribute("SESSIONINFO");
 		if(vo!=null){
-			for(RoleVO role:vo.getRoles()){
-				for(ResourceVO re:role.getResources()){
-					if(path.equals(re.getUrl())){
-						logger.info("SUCCESS");
-						return true;
-					}
-				}
+			if(pro(vo.getResources(),path).equals("yes")){
+				return true;
 			}
 			logger.info("NO_SECURITY");
 			request.setAttribute("message", "没有权限："+path);
@@ -67,6 +63,21 @@ public class SecurityInterceptor implements HandlerInterceptor{
 			request.getRequestDispatcher(outsideOfficeHoursPage).forward(request, response);
 			return false;
 		}
+	}
+	
+	private String pro(List<ResourceVO> list,String path){
+		for(int i=0;i<list.size();i++){
+			if(path.equals(list.get(i).getUrl())){
+				logger.info("SUCCESS");
+				return "yes";
+			}
+			else if(list.get(i).getChildren()!=null){
+				String s = pro(list.get(i).getChildren(),path);
+				if(s.equals("yes"))
+					return "yes";
+			}
+		}
+		return "no";
 	}
 
 }

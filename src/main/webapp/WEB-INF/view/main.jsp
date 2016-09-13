@@ -36,11 +36,11 @@
 			    <ul class="nav" id="side-menu">
 			        <li class="nav-header">
 			            <div class="dropdown profile-element">
-                            <span><img alt="未上传头像" class="img-circle" src="${INFO.info.photo}" /></span>
+                            <span><img alt="未上传头像" class="img-circle" src="${SESSIONINFO.info.photo}" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold"></strong></span>
-                                <span class="text-muted text-xs block">用户：${INFO.info.username}&nbsp;<b class="caret"></b></span>
+                                <span class="text-muted text-xs block">用户：${SESSIONINFO.info.username}&nbsp;<b class="caret"></b></span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -53,11 +53,11 @@
                                 <li><a class="J_menuItem" href="mailbox.html">信箱</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="login.html">安全退出</a>
+                                <li><a href="index.html">安全退出</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="logo-element">H+
+                        <div class="logo-element">STU
                         </div>
 			        </li>
 			        <%=JspUtil.getResources(request)%>

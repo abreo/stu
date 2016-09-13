@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.nihao.dao.UserMapper;
 import com.nihao.model.User;
 import com.nihao.model.view.OrganizationVO;
+import com.nihao.model.view.ResourceVO;
 import com.nihao.model.view.RoleVO;
 import com.nihao.model.view.UserVO;
 import com.nihao.service.OrganizationServiceI;
+import com.nihao.service.ResourceServiceI;
 import com.nihao.service.RoleServiceI;
 import com.nihao.service.UserServiceI;
 import com.nihao.util.MD5Util;
@@ -21,7 +23,12 @@ import com.nihao.util.MD5Util;
 public class UserServiceImpl implements UserServiceI {
 	@Autowired
 	private UserMapper userMapper;
-
+	@Autowired
+	private RoleServiceI roleService;
+	@Autowired
+	private OrganizationServiceI organizationService;
+	@Autowired
+	private ResourceServiceI resourceService;
 
 	@Override
 	public UserVO login(String loginname, String pwd) {
@@ -29,7 +36,15 @@ public class UserServiceImpl implements UserServiceI {
 		map.put("loginname", loginname);
 		map.put("pwd", MD5Util.md5(pwd));
 		User user=userMapper.selectOneByLoginnameAndPwd(map);
+		if(user==null)
+			return null;
 		UserVO vo=new UserVO();
+		List<RoleVO> roles=roleService.selectListByUserId(user.getId());
+		List<OrganizationVO> organizations=organizationService.selectListByUserId(user.getId());
+		List<ResourceVO> resources=resourceService.selectListByUserId(user.getId());
+		vo.setOrganizations(organizations);
+		vo.setResources(resources);
+		vo.setRoles(roles);
 		vo.setInfo(user);
 		return vo;
 	}

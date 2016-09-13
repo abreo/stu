@@ -1,6 +1,7 @@
 package com.nihao.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,19 +22,27 @@ public class OrganizationServiceImpl implements OrganizationServiceI{
 
 	@Override
 	public List<OrganizationVO> selectListByUserId(Integer userId) {
+//		List<Organization> list=organizationMapper.selectListByUserId(userId);
+//		Iterator<Organization> it=list.iterator();
+//		List<OrganizationVO> voList=new ArrayList<>();
+//		while(it.hasNext()){
+//			Organization or=it.next();
+//			if(or.getParentid()==null){
+//				voList.add(new OrganizationVO(or));
+//				it.remove();
+//			}
+//		}
+//		for(OrganizationVO vo:voList){
+//			ZuZhuangUtil.zuZhuang(list, vo, OrganizationVO.class);
+//		}
+//		return voList;
 		List<Organization> list=organizationMapper.selectListByUserId(userId);
 		Iterator<Organization> it=list.iterator();
 		List<OrganizationVO> voList=new ArrayList<>();
 		while(it.hasNext()){
-			Organization or=it.next();
-			if(or.getParentid()==null){
-				voList.add(new OrganizationVO(or));
-				it.remove();
-			}
+			voList.add(new OrganizationVO(it.next()));
 		}
-		for(OrganizationVO vo:voList){
-			ZuZhuangUtil.zuZhuang(list, vo, OrganizationVO.class);
-		}
+		Collections.sort(voList);
 		return voList;
 	}
 
