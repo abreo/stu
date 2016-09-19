@@ -2,6 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%@ page import="com.nihao.util.JspUtil" %>
+<%@ page import="com.nihao.model.view.UserVO" %>
+<% 
+UserVO userVo=(UserVO)session.getAttribute("SESSIONINFO");
+if(userVo==null){
+	response.sendRedirect(request.getContextPath()+"/index.html");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +21,13 @@
 <meta name="description"
 	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 <!-- css -->
-<link rel="/stu/static/hplus/shortcut icon" href="favicon.ico">
-<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6"
+<link rel="/stu/hplus/shortcut icon" href="favicon.ico">
+<link href="/stu/hplus/css/bootstrap.min14ed.css?v=3.3.6"
 	rel="stylesheet">
-<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0"
+<link href="/stu/hplus/css/font-awesome.min93e3.css?v=4.4.0"
 	rel="stylesheet">
-<link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
-<link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link href="/stu/hplus/css/animate.min.css" rel="stylesheet">
+<link href="/stu/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg"
@@ -53,7 +60,7 @@
                                 <li><a class="J_menuItem" href="mailbox.html">信箱</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="/stu/logout">安全退出</a>
+                                <li><a href="index.html">安全退出</a>
                                 </li>
                             </ul>
                         </div>
@@ -111,10 +118,10 @@
                         </li>
                     </ul>
                 </div>
-                <a href="/stu/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <a href="javascript:void(0);" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/stu/page/welcome" frameborder="0" data-id="welcome.html" seamless></iframe>
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/stu/page/welcome.htm" frameborder="0" data-id="welcome.html" seamless></iframe>
             </div>
             <div class="footer">
                 <div class="pull-right">&copy; 2015-2016 <a href="javascript:void(0);" target="_blank">stu</a>
@@ -223,7 +230,7 @@
                             <div class="sidebar-message">
                                 <a href="#">
                                     <div class="pull-left text-center">
-                                        <img alt="image" class="img-circle message-avatar" src="/stu/static/image/a1.jpg">
+                                        <img alt="image" class="img-circle message-avatar" src="img/a1.jpg">
                                         <div class="m-t-xs">
                                             <i class="fa fa-star text-warning"></i>
                                             <i class="fa fa-star text-warning"></i>
@@ -249,19 +256,19 @@
 
 
 	<!-- js -->
-	<script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"
+	<script src="/stu/hplus/js/jquery.min.js?v=2.1.4"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"
+	<script src="/stu/hplus/js/bootstrap.min.js?v=3.3.6"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/metisMenu/jquery.metisMenu.js"
+	<script src="/stu/hplus/js/plugins/metisMenu/jquery.metisMenu.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"
+	<script src="/stu/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/layer/layer.min.js"
+	<script src="/stu/hplus/js/plugins/layer/layer.min.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/hplus.min.js?v=4.1.0" type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/contabs.min.js" type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/pace/pace.min.js"
+	<script src="/stu/hplus/js/hplus.min.js?v=4.1.0" type="text/javascript"></script>
+	<script src="/stu/hplus/js/contabs.min.js" type="text/javascript"></script>
+	<script src="/stu/hplus/js/plugins/pace/pace.min.js"
 		type="text/javascript"></script>
 	<script src="/stu/static/js/main.js" type="text/javascript"></script>
 </body>

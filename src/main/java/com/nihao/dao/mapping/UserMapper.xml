@@ -19,4 +19,17 @@
   where loginname=#{loginname,jdbcType=VARCHAR} 
   and pwd=#{pwd,jdbcType=VARCHAR}
   </select>
+  <select id="selectUserList" resultType="com.nihao.model.User" parameterType="java.util.HashMap">
+  select * from user 
+  where 1=1 
+  <if test="username!=null">
+  and username like concat('%',#{username},'%')
+  </if>
+  <if test="sort!=null">
+      order by ${sort}
+      <if test="order!=null">
+          ${order}
+      </if>
+  </if>
+  </select>
 </mapper>

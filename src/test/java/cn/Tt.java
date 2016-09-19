@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.nihao.dao.LogindataMapper;
 import com.nihao.dao.impl.CommonDao;
 import com.nihao.model.Logindata;
+import com.nihao.model.User;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.service.ResourceServiceI;
 import com.nihao.service.TestServiceI;
@@ -60,6 +61,12 @@ public class Tt {
 				 }
 			 }
 		 }
+	 }
+	 @Test
+	 public void testlist(){
+		 RowBounds rb=new RowBounds(1, 10);
+		 List<User> list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", new HashMap(), rb);
+		 
 	 }
 	
 }
