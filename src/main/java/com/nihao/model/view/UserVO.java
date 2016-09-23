@@ -10,11 +10,21 @@ public class UserVO {
 	
 	private String ip;
 	
+	private String userAgent;
+	
 	private List<RoleVO> roles;
 	
 	private List<OrganizationVO> organizations;
 	
 	private List<ResourceVO> resources;
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
+	}
 
 	public List<ResourceVO> getResources() {
 		return resources;

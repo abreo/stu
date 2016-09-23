@@ -29,7 +29,7 @@ public class User implements Serializable{
 
     private Date cdatetime;
 
-    private Date udatatime;
+    private Date udatetime;
 
     public Integer getId() {
         return id;
@@ -111,11 +111,11 @@ public class User implements Serializable{
         this.cdatetime = cdatetime;
     }
 
-    public Date getUdatatime() {
-        return udatatime;
+    public Date getUdatetime() {
+        return udatetime;
     }
 
-    public void setUdatatime(Date udatatime) {
-        this.udatatime = udatatime;
+    public void setUdatetime(Date udatetime) {
+        this.udatetime = udatetime;
     }
 }

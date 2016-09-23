@@ -45,7 +45,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object obj) throws Exception {
-		String path=request.getServletPath().replaceAll(".htm", "");
+		String path=request.getServletPath();
 		logger.info("进入安全拦截器，请求地址："+path);
 		UserVO vo=(UserVO)request.getSession().getAttribute("SESSIONINFO");
 		if(vo!=null){

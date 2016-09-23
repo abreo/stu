@@ -16,8 +16,28 @@ public class Logindata implements Serializable{
     private String ltype;
 
     private Date cdatetime;
+    
+    private String ip;
+    
+    private String useragent;
 
-    public Integer getId() {
+	public String getUseragent() {
+		return useragent;
+	}
+
+	public void setUseragent(String useragent) {
+		this.useragent = useragent;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public Integer getId() {
         return id;
     }
 

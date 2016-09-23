@@ -12,15 +12,25 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="cdatetime" property="cdatetime" jdbcType="TIMESTAMP" />
-    <result column="udatatime" property="udatatime" jdbcType="TIMESTAMP" />
+    <result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
   <select id="selectOneByLoginnameAndPwd" resultType="com.nihao.model.User" parameterType="java.util.HashMap">
   select * from user
   where loginname=#{loginname,jdbcType=VARCHAR} 
   and pwd=#{pwd,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectCount" parameterType="java.util.HashMap" resultType="java.lang.Long">
+  select count(*) from user
+  where 1=1 
+  <if test="username!=null">
+  and username like concat('%',#{username},'%')
+  </if>
+  </select>
+  
   <select id="selectUserList" resultType="com.nihao.model.User" parameterType="java.util.HashMap">
-  select * from user 
+  select id,loginname,username,gender,birthday,phonenum,email,photo,cdatetime,udatetime from user 
   where 1=1 
   <if test="username!=null">
   and username like concat('%',#{username},'%')

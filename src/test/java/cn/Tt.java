@@ -1,5 +1,6 @@
 package cn;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class Tt {
 	 private CommonDao commonDao;
 	 @Autowired 
 	 private ResourceServiceI resourceService;
+	 
+	 @Test
+	 public void qww(){
+		 Logindata logindata=new Logindata();
+			logindata.setLoginname("root");
+			logindata.setCdatetime(new Date());
+			logindata.setLtype("登录");
+			logindata.setIp("127.0.0.1");
+		 int i=commonDao.save("com.nihao.dao.LogindataMapper.insertOne", logindata);
+	 }
 	 
 	 @Test
 	 public void tttttt(){

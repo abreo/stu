@@ -22,6 +22,9 @@ public class JspUtil{
 		sb.append("<li>");
 		
 		for(ResourceVO vo:list){
+			if(vo.getRtype()==2){
+				continue;
+			}
 			List<ResourceVO> li=vo.getChildren();
 			String icon="fa-file-text-o";
 			String url="javascript:void(0);";
@@ -30,10 +33,17 @@ public class JspUtil{
 				icon=vo.getIconcls();
 			}
 			if(vo.getUrl()!=null){
-				url=contextPath+vo.getUrl()+".htm";
+				url=contextPath+vo.getUrl();
 				aClass="J_menuItem";
 			}
-			if(li!=null&&li.size()>0){//class=\"fa fa-desktop\"
+			boolean b=false;
+			for(ResourceVO v:li){
+				if(v.getRtype()==1){
+					b=true;
+					break;
+				}
+			}
+			if(b){
 				sb.append("<a class=\""+aClass+"\" href=\""+url+"\"><i class=\"fa "+icon+"\"></i><span class=\"nav-label\">"+vo.getResourcename()+"</span><span class=\"fa arrow\"></span></a>");
 				sb.append("<ul class=\"nav nav-second-level\">");
 				pro(sb,li,contextPath);

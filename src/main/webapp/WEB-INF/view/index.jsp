@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,39 +38,19 @@
                 <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
                 </p>
               </form>
+              <input type="hidden" id="mes" value="${MES}">
         </div>
     </div>
     <script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"></script>
     <script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"></script>
     <script type="text/javascript">
-    var login=function(){
-    	if($.trim($('#loginname').val())==''){
-    		alert('请输入用户名');
-    		return;
+    $(function(){
+    	var mes=$('#mes').val();
+    	if(mes!=''){
+    		alert(mes);
+    		$('#mes').val('');
     	}
-    	if($.trim($('#pwd').val())==''){
-    		alert('请输入密码');
-    		return;
-    	}
-    	//var param=$('#form1').serializeArray();
-    	$.ajax({
-    		type:'post',
-    		url:'/stu/user/login',
-    		data:{
-    			loginname:$.trim($('#loginname').val()),
-    			pwd:$.trim($('#pwd').val())
-    		},
-    		dataType:'text',
-    		success:function(data){
-    			if(data.code==200){
-    				
-    			}
-    			else{
-    				
-    			}
-    		}
-    	});
-    };
+    });
     </script>
 </body>
 </html>
