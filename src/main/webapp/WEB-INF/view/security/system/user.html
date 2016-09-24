@@ -21,23 +21,35 @@
 <!-- js -->
     <script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"></script>
     <script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"></script>
-    <!-- <script src="/stu/hplus/js/content.min.js?v=1.0.0"></script> -->
+    <script src="/stu/static/hplus/js/content.min.js?v=1.0.0"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/stu/static/js/main.js"></script>
 <body>
-<div id="toolbar" class="btn-group" style="margin-top: 10px;margin-bottom: 5px;">
-   <input class="form-control input-outline" placeholder="用户名" type="text" value="">
-   <input type="hidden" id="username" value="">
-</div>
-<table id="table"></table>
+    <div class="row border-bottom white-bg dashboard-header">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div id="toolbar" class="btn-group" class="toolbar btn-group" data-toggle="bottons-checkbox">
+                        <button id="edit_btn" class="btn btn-default" type="button">编辑</button>
+                        <button id="del_btn" class="btn btn-default" type="button">删除</button>
+                        <button id="search_btn" class="btn btn-default" type="button">查找</button>
+                    </div>
+                    <table id="table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     
 	<script type="text/javascript">
 	$(function(){
 		$('#table').bootstrapTable({
 			method:'post',
 			classes:'table table-bordered',
-			url:'/stu/security/user/list',
+			url:getContextPath()+'/security/user/list',
 			pagination:'true',
 			sortName:'id',
 			sortOrder:'asc',
@@ -45,37 +57,58 @@
 			idField:'id',
 			toolbar:'#toolbar',
 			toolbarAlign:'left',
-			contentType:'application/x-www-form-urlencoded',
-			queryParamsType:'',
+			contentType:'application/json',
+			queryParamsType:'undefined',
+			clickToSelect:true,
+			showColumns:true,
+			pageList:[10,20,30,40,50,100,200],
 			queryParams:function(params){
-				var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+				var param = {};
+				if($.trim($('#username').val())!=""){
+					param.username=$.trim($('#username').val());
+				}
+				var postData = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
 					      pageSize: params.pageSize,   //页面大小
 					      pageNumber: params.pageNumber,  //页码
 					      sortName: params.sortName,  //排序列名
 					      sortOrder: params.sortOrder,//排位命令（desc，asc）
-					      username: $('#username').val()
+					      param: param
 					    };
-				return temp;
+				return postData;
 			},
 		    columns: [ {
+		    	field: 'state',
+		        radio: true
+		    },{
 		        field: 'loginname',
-		        title: 'loginname'
+		        title: '登录名'
 		    },{
 		    	field: 'username',
-		        title: 'username'
+		        title: '用户名'
 		    },{
 		    	field: 'gender',
-		        title: 'gender'
+		        title: '性别'
 		    },{
 		    	field: 'birthday',
-		        title: 'birthday'
+		        title: '生日'
 		    },{
 		    	field: 'phonenum',
-		        title: 'phonenum'
+		        title: '电话'
 		    },{
 		    	field: 'email',
-		        title: 'email'
+		        title: '邮箱'
 		    }]
+		});
+		
+		$('#edit_btn').click(function(){
+			var data_table=$('#table');
+			var selects=data_table.bootstrapTable('getSelections');
+			var selected=selects[0];
+			if(selected==undefined){
+				alert('未选择')
+				return;
+			}
+			alert(JSON.stringify(selects));
 		});
 	});
 	</script>
