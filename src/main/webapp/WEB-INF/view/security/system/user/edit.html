@@ -32,14 +32,15 @@
     <div class="modal-body">
 		<form method="get" class="form-horizontal" id="dataForm">
 			<div style="display: none;">
-				<input type="hidden" name="id" id="id" value=""/>
+				<input type="hidden" name="id" id="id" value="" submit-validate="" />
 			</div>
 			<div class="form-group" >
 				<div class="col-sm-4">
 					<div class="row">
 						<label class="control-label col-sm-5">登录名</label>
 						<div class="col-sm-7">
-							<input id="loginname" name="loginname" value="123" type="text" class="form-control">
+							<input id="loginname" name="loginname" value="" type="text" class="form-control need-validate" disabled
+							data-placement="bottom" title="" validation="required">
 						</div>
 					</div>
 				</div>
@@ -47,7 +48,8 @@
 					<div class="row">
 						<label class="control-label col-sm-5">姓名:</label>
 						<div class="col-sm-7">
-							<input id="username" name="username" type="text" class="form-control">
+							<input id="username" name="username" type="text" class="form-control need-validate" 
+							data-placement="bottom" title="" validation="required">
 						</div>
 					</div>
 				</div>
@@ -55,7 +57,7 @@
 					<div class="row">
 						<label class="control-label col-sm-5">性别:</label>
 						<div class="col-sm-7">
-							<select class="form-control m-b" id="gender" name="gender">
+							<select class="form-control need-validate" id="gender" name="gender">
 							    <option value="男">男</option>
 								<option value="女">女</option>
 							</select>
@@ -77,7 +79,8 @@
 					<div class="row">
 						<label class="control-label col-sm-5">电话:</label>
 						<div class="col-sm-7">
-							<input id="phonenum" name=""phonenum" type="text" class="form-control">
+							<input id="phonenum" name="phonenum" type="text" class="form-control need-validate"
+							data-placement="bottom" title=""  validation="cellphone">
 						</div>
 					</div>
 				</div>
@@ -85,7 +88,7 @@
 					<div class="row">
 						<label class="control-label col-sm-5">邮箱:</label>
 						<div class="col-sm-7">
-							<input id="email" name="email" type="text" class="form-control">
+							<input id="email" name="email" type="text" class="form-control" disabled>
 						</div>
 					</div>
 				</div>
@@ -95,7 +98,7 @@
 					<div class="row">
 						<label class="control-label col-sm-5">创建日期:</label>
 						<div class="col-sm-7">
-							<input name="cdatetime" id="cdatetime" type="text" value=""  class="form-control">
+							<input name="cdatetime" id="cdatetime" type="text" value=""  class="form-control" disabled>
 						</div>
 					</div>
 				</div>
@@ -103,13 +106,13 @@
 					<div class="row">
 						<label class="control-label col-sm-5">最近修改日期:</label>
 						<div class="col-sm-7">
-							<input name="udatetime" id="udatetime" type="text" value=""  class="form-control">
+							<input name="udatetime" id="udatetime" type="text" value=""  class="form-control" disabled>
 						</div>
 					</div>
 				</div>
        		</div>
        		<div class="form-group" align="center">
-					<button class="btn btn-primary active" type="submit">确  认</button>
+					<button id="btn-submit" class="btn btn-primary active" type="button">确  认</button>
 					&nbsp;&nbsp;&nbsp;
 					<button class="btn btn-primary active"  type="button" onclick="mclose();" >关  闭</button>
 		    </div>
@@ -126,17 +129,10 @@
 		param.url=url;
 		param.data={"id":id};
 		initForm(param);
-		
-		$("#dataForm").validate({
-			rules: {
-				loginname:"required"
-			},
-			messages: {
-			},
-			submitHandler:function(){
+		$('#btn-submit').click(function(){
+			if($('#dataForm').validate()){
 				var dataJson = $("#dataForm").serializeJson();
-				alert(JSON.stringify(dataJson));
-				submitFormData(getRootPath()+"/user/update.i","sys_user_add",dataJson);
+				//alert(JSON.stringify(dataJson));
 			}
 		});
 	});
