@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSON;
 
 @Controller
 public class Test {
-	@RequestMapping("/qwe")
+	@RequestMapping("/qwe/doNotNeedSecurity_qq")
 	public void qq(HttpServletRequest request){
 		throw new RuntimeException("exception------------");
 //		@SuppressWarnings("unused")

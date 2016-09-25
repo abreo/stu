@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<title>USER</title>
-<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
-<meta name="description"
-	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+<title>STU - 用户首页</title>
+<meta name="keywords" content="STU">
+<meta name="description" content="STU">
 <!-- css -->
 <link rel="/stu/static/hplus/shortcut icon" href="favicon.ico">
 <link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6"
@@ -17,6 +16,7 @@
 	rel="stylesheet">
 <link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
 <link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link href="/stu/static/hplus/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
 </head>
 <!-- js -->
     <script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"></script>
@@ -32,11 +32,11 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div id="toolbar" class="btn-group" class="toolbar btn-group" data-toggle="bottons-checkbox">
-                        <button id="edit_btn" class="btn btn-default" type="button">编辑</button>
-                        <button id="del_btn" class="btn btn-default" type="button">删除</button>
-                        <button id="search_btn" class="btn btn-default" type="button">查找</button>
+                        <button id="edit_btn" class="btn btn-default" type="button"><i class="fa fa-edit"></i>编辑</button>
+                        <button id="del_btn" class="btn btn-default" type="button"><i class="fa fa-remove"></i>删除</button>
+                        <button id="search_btn" class="btn btn-default" type="button"><i class="fa fa-search"></i>查找</button>
                     </div>
-                    <table id="table"></table>
+                    <table id="data_table"></table>
                 </div>
             </div>
         </div>
@@ -46,10 +46,10 @@
     
 	<script type="text/javascript">
 	$(function(){
-		$('#table').bootstrapTable({
+		$('#data_table').bootstrapTable({
 			method:'post',
 			classes:'table table-bordered',
-			url:getContextPath()+'/security/user/list',
+			url:getContextPath()+'/security/user/list.ajax',
 			pagination:'true',
 			sortName:'id',
 			sortOrder:'asc',
@@ -81,34 +81,54 @@
 		        radio: true
 		    },{
 		        field: 'loginname',
-		        title: '登录名'
+		        title: '登录名',
+		        align: 'center',
+                valign: 'middle'
 		    },{
 		    	field: 'username',
-		        title: '用户名'
+		        title: '用户名',
+		        align: 'center',
+                valign: 'middle'
 		    },{
 		    	field: 'gender',
-		        title: '性别'
+		        title: '性别',
+		        align: 'center',
+                valign: 'middle'
 		    },{
 		    	field: 'birthday',
-		        title: '生日'
+		        title: '生日',
+		        align: 'center',
+                valign: 'middle'
 		    },{
 		    	field: 'phonenum',
-		        title: '电话'
+		        title: '电话',
+		        align: 'center',
+                valign: 'middle'
 		    },{
 		    	field: 'email',
-		        title: '邮箱'
+		        title: '邮箱',
+		        align: 'center',
+                valign: 'middle'
 		    }]
 		});
 		
 		$('#edit_btn').click(function(){
-			var data_table=$('#table');
+			var data_table=$('#data_table');
 			var selects=data_table.bootstrapTable('getSelections');
 			var selected=selects[0];
 			if(selected==undefined){
 				alert('未选择')
 				return;
 			}
-			alert(JSON.stringify(selects));
+			parent.layer.open({
+			    type: 2,
+			    title: '编辑',
+			    shadeClose: true,
+			    shade: 0.8,
+			    area: ['900px', '400px'],
+			    content: getContextPath()+'/page/security_system_user_edit?id='+selected.id, //iframe的url
+			    end:refreshTable
+		    });
 		});
 	});
 	</script>

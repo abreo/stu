@@ -42,4 +42,9 @@
       </if>
   </if>
   </select>
+  
+  <select id="selectUserById" resultType="com.nihao.model.User" parameterType="java.lang.Integer">
+   select id,loginname,username,gender,birthday,phonenum,email,photo,cdatetime,udatetime from user 
+   where id=#{id}
+  </select>
 </mapper>

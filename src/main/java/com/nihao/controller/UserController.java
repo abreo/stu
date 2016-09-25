@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.nihao.dao.impl.CommonDao;
 import com.nihao.model.User;
 import com.nihao.model.view.ControllerVO;
+import com.nihao.model.view.JSONResult;
 import com.nihao.model.view.PageResultForBootstrap;
 import com.nihao.model.view.UserVO;
 import com.nihao.service.UserServiceI;
@@ -54,7 +55,7 @@ public class UserController {
 		response.sendRedirect("/stu");
 	}
 	
-	@RequestMapping(value="/security/user/list",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
+	@RequestMapping(value="/security/user/list.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
 	@ResponseBody
 	public String list(@RequestBody ControllerVO vo){
 		Long l=commonDao.countByParam("com.nihao.dao.UserMapper.selectCount", vo.getParam());
@@ -64,6 +65,15 @@ public class UserController {
 		List<User> list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", vo.getParam(), rb);
 		bf.setRows(list);
 		return JSON.toJSONString(bf);
+	}
+	
+	@RequestMapping(value="/security/user/info.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
+	@ResponseBody
+	public String getUserInfoById(Integer id){
+		JSONResult jr=new JSONResult(200, "成功"); 
+		User user=(User) commonDao.selectByPrimaryKey("com.nihao.dao.UserMapper.selectUserById", id);
+		jr.setData(user);
+		return JSON.toJSONString(jr);
 	}
 	
 }

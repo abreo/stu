@@ -22,7 +22,7 @@ public class JspUtil{
 		sb.append("<li>");
 		
 		for(ResourceVO vo:list){
-			if(vo.getRtype()==2){
+			if(vo.getRtype()!=1){
 				continue;
 			}
 			List<ResourceVO> li=vo.getChildren();

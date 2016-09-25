@@ -1,4 +1,4 @@
-package com.nihao.model.view;
+package com.nihao.util;
 
 import java.lang.reflect.Field;
 

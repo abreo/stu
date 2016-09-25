@@ -20,7 +20,6 @@
 	
 	<mvc:resources location="/static/" mapping="/static/**"/>
 	<mvc:resources location="/WEB-INF/view/" mapping="/WEB-INF/view/**"/>
-	<!-- <mvc:resources location="/" mapping="/**"/> -->
 	
 	<mvc:view-controller path="/" view-name="/index"/> 
 
@@ -58,8 +57,8 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/security/**/**" />
-			<mvc:mapping path="/page/security_**" />
+			<mvc:mapping path="/security/**" />
+			<mvc:mapping path="/page/security**" />
 			<bean class="com.nihao.interceptor.SecurityInterceptor">
 				<property name="outsideOfficeHoursPage">
 					<value>/noSecurity.jsp</value>
