@@ -27,6 +27,8 @@ public class ResourceVO implements Comparable<ResourceVO>{
 
     private Date udatetime;
     
+    private Integer parentid;
+    
     public ResourceVO(Resource re) {
     	this.id=re.getId();
     	this.resourcename=re.getResourcename();
@@ -37,6 +39,15 @@ public class ResourceVO implements Comparable<ResourceVO>{
     	this.rtype=re.getRtype();
     	this.cdatetime=re.getCdatetime();
     	this.udatetime=re.getUdatetime();
+    	this.parentid=re.getParentid();
+	}
+
+	public Integer getParentid() {
+		return parentid;
+	}
+
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
 	}
 
 	public ResourceVO() {

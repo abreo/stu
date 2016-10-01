@@ -1,8 +1,5 @@
 package com.nihao.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -16,14 +13,14 @@ import com.nihao.model.view.JSONResult;
 @RequestMapping("/ajax")
 public class AjaxController {
 	
-	@RequestMapping(value="/session",produces="text/html;charset=UTF-8")
+	@RequestMapping(value="/returnsession",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String noSession(){
 		JSONResult jr=new JSONResult(403, "未登录，或登录已超时");
 		return JSON.toJSONString(jr);
 	}
 	
-	@RequestMapping(value="/security",produces="text/html;charset=UTF-8")
+	@RequestMapping(value="/returnsecurity",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String noSecurity(HttpServletRequest request){
 		JSONResult jr=new JSONResult(403, "没有权限:"+request.getAttribute("path"));

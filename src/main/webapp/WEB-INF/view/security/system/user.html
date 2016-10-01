@@ -10,127 +10,46 @@
 <meta name="description" content="STU">
 <!-- css -->
 <link rel="/stu/static/hplus/shortcut icon" href="favicon.ico">
-<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6"
-	rel="stylesheet">
-<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0"
-	rel="stylesheet">
+    
+
+<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 <link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
 <link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link href="/stu/static/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 <link href="/stu/static/hplus/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
+<link href="/stu/static/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
 </head>
-<!-- js -->
+<body id="body">
+<form id="param-form" class="hidden">
+</form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div id="tree"style="margin-top: 5px;"></div>
+            </div>
+            <div class="col-md-10">
+                <div id="toolbar" class="btn-group"  data-toggle="bottons-checkbox">
+                    <button id="edit_btn" class="btn btn-default" type="button"><i class="fa fa-edit"></i>编辑</button>
+                    <button id="del_btn" class="btn btn-default" type="button"><i class="fa fa-remove"></i>删除</button>
+                    <button id="search_btn" class="btn btn-default" type="button"><i class="fa fa-search"></i>查找</button>
+                </div>
+                <table id="data_table" data-mobile-responsive="true"></table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- js -->
     <script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"></script>
     <script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="/stu/static/hplus/js/content.min.js?v=1.0.0"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/stu/static/hplus/js/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="/stu/static/lightbox-dialog/dist/js/lobibox.min.js"></script> 
+    <script src="/stu/static/jQuery.resizeEnd.min.js"></script>
     <script src="/stu/static/js/main.js"></script>
-<body>
-    <div class="row border-bottom white-bg dashboard-header">
-        <div class="wrapper wrapper-content">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div id="toolbar" class="btn-group" class="toolbar btn-group" data-toggle="bottons-checkbox">
-                        <button id="edit_btn" class="btn btn-default" type="button"><i class="fa fa-edit"></i>编辑</button>
-                        <button id="del_btn" class="btn btn-default" type="button"><i class="fa fa-remove"></i>删除</button>
-                        <button id="search_btn" class="btn btn-default" type="button"><i class="fa fa-search"></i>查找</button>
-                    </div>
-                    <table id="data_table"></table>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    
-	<script type="text/javascript">
-	$(function(){
-		$('#data_table').bootstrapTable({
-			method:'post',
-			classes:'table table-bordered',
-			url:getContextPath()+'/security/user/list.ajax',
-			pagination:'true',
-			sortName:'id',
-			sortOrder:'asc',
-			sidePagination:'server',
-			idField:'id',
-			toolbar:'#toolbar',
-			toolbarAlign:'left',
-			contentType:'application/json',
-			queryParamsType:'undefined',
-			clickToSelect:true,
-			showColumns:true,
-			pageList:[10,20,30,40,50,100,200],
-			queryParams:function(params){
-				var param = {};
-				if($.trim($('#username').val())!=""){
-					param.username=$.trim($('#username').val());
-				}
-				var postData = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-					      pageSize: params.pageSize,   //页面大小
-					      pageNumber: params.pageNumber,  //页码
-					      sortName: params.sortName,  //排序列名
-					      sortOrder: params.sortOrder,//排位命令（desc，asc）
-					      param: param
-					    };
-				return postData;
-			},
-		    columns: [ {
-		    	field: 'state',
-		        radio: true
-		    },{
-		        field: 'loginname',
-		        title: '登录名',
-		        align: 'center',
-                valign: 'middle'
-		    },{
-		    	field: 'username',
-		        title: '用户名',
-		        align: 'center',
-                valign: 'middle'
-		    },{
-		    	field: 'gender',
-		        title: '性别',
-		        align: 'center',
-                valign: 'middle'
-		    },{
-		    	field: 'birthday',
-		        title: '生日',
-		        align: 'center',
-                valign: 'middle'
-		    },{
-		    	field: 'phonenum',
-		        title: '电话',
-		        align: 'center',
-                valign: 'middle'
-		    },{
-		    	field: 'email',
-		        title: '邮箱',
-		        align: 'center',
-                valign: 'middle'
-		    }]
-		});
-		
-		$('#edit_btn').click(function(){
-			var data_table=$('#data_table');
-			var selects=data_table.bootstrapTable('getSelections');
-			var selected=selects[0];
-			if(selected==undefined){
-				alert('未选择')
-				return;
-			}
-			parent.layer.open({
-			    type: 2,
-			    title: '编辑',
-			    shadeClose: true,
-			    shade: 0.8,
-			    area: ['900px', '400px'],
-			    content: getContextPath()+'/page/security_system_user_edit?id='+selected.id, //iframe的url
-			    end:refreshTable
-		    });
-		});
-	});
-	</script>
+    <script src="/stu/static/js/security/system/user.js"></script>
 </body>
 </html>

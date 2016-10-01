@@ -10,16 +10,92 @@
 <meta name="description" content="STU">
 <!-- css -->
 <link rel="/stu/static/hplus/shortcut icon" href="favicon.ico">
-<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6"
-	rel="stylesheet">
-<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0"
-	rel="stylesheet">
+<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 <link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
 <link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-<link href="/stu/static/hplus/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
-<link href="/stu/static/hplus/js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+<!-- <link href="/stu/static/hplus/js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet"> -->
+<link href="/stu/static/lightbox-dialog/dist/css/Lobibox.min.css"" rel="stylesheet">
+<style type="text/css">
+</style>
 </head>
-<!-- js -->
+<body style="padding: 3px;">
+    <!-- <img id="photo" src="/stu/static/image/default.jpg" alt="未上传头像" width="140px" height="140px"> -->
+  <form method="get" class="form-horizontal" id="dataForm">
+    <div style="display: none;">
+	    <input type="hidden" name="id" id="id" value="">
+		<input type="hidden" name="photo" id="photo" value="" disabled>
+	</div>
+    <table class="table table-bordered">
+        <tr>
+            <td rowspan="5" style="text-align: center;vertical-align: top;">
+                <img style="border-radius:15px;" id="photo-img" src="/stu/static/image/default.jpg" alt="未上传头像" width="140px" height="140px">
+            </td>
+            <td>登录名</td>
+            <td>
+                <input id="loginname" name="loginname" value="" type="text" 
+                    class="form-control need-validate" disabled
+					data-placement="bottom" title="" validation="required">
+            </td>
+            <td>姓名</td>
+            <td>
+                <input id="username" name="username" type="text" 
+                    class="form-control need-validate" 
+					data-placement="bottom" title="" validation="required">
+            </td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td>
+                <select class="form-control need-validate" id="gender" name="gender">
+				    <option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+            </td>
+            <td>电话</td>
+            <td>
+                <input id="phonenum" name="phonenum" type="text" class="form-control need-validate"
+				    data-placement="bottom" title=""  validation="cellphone">
+            </td>
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td>
+                <input id="birthday" name="birthday" type="text" class="form-control layer-date" 
+				    onclick="laydate({istime: false, format: 'YYYY-MM-DD', festival: true})">
+            </td>
+            <td>邮箱</td>
+            <td>
+                <input id="email" name="email" type="text" class="form-control" 
+					 value="" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>机构</td>
+            <td>
+                <input id="organizationname" name="organizationname" type="text" class="form-control" 
+					 value="" disabled>
+            </td>
+            <td>创建时间</td>
+            <td>
+                <input name="cdatetime" id="cdatetime" type="text" value=""  class="form-control" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>修改时间</td>
+            <td>
+                <input name="udatetime" id="udatetime" type="text" value=""  class="form-control" disabled>
+            </td>
+            <td colspan="2" align="center">
+                <button id="btn-submit" class="btn btn-primary active" type="button">确  认</button>
+					&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-primary active"  type="button" onclick="mclose();" >关  闭</button>
+            </td>
+        </tr>
+    </table>
+  </form>  
+  
+    <!-- js -->
     <script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"></script>
     <script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="/stu/static/hplus/js/content.min.js?v=1.0.0"></script>
@@ -27,119 +103,8 @@
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/stu/static/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="/stu/static/hplus/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="/stu/static/lightbox-dialog/dist/js/lobibox.min.js""></script> 
     <script src="/stu/static/js/main.js"></script>
-<body>
-    <div class="modal-body">
-		<form method="get" class="form-horizontal" id="dataForm">
-			<div style="display: none;">
-				<input type="hidden" name="id" id="id" value="" submit-validate="" />
-			</div>
-			<div class="form-group" >
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">登录名</label>
-						<div class="col-sm-7">
-							<input id="loginname" name="loginname" value="" type="text" class="form-control need-validate" disabled
-							data-placement="bottom" title="" validation="required">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">姓名:</label>
-						<div class="col-sm-7">
-							<input id="username" name="username" type="text" class="form-control need-validate" 
-							data-placement="bottom" title="" validation="required">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">性别:</label>
-						<div class="col-sm-7">
-							<select class="form-control need-validate" id="gender" name="gender">
-							    <option value="男">男</option>
-								<option value="女">女</option>
-							</select>
-						</div>
-					</div>
-				</div>
-       		</div>
-       		<div class="form-group" >
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">生日:</label>
-						<div class="col-sm-7">
-							<input id="birthday" name="birthday" type="text" class="form-control layer-date" 
-							onclick="laydate({istime: false, format: 'YYYY-MM-DD', festival: true})">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">电话:</label>
-						<div class="col-sm-7">
-							<input id="phonenum" name="phonenum" type="text" class="form-control need-validate"
-							data-placement="bottom" title=""  validation="cellphone">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">邮箱:</label>
-						<div class="col-sm-7">
-							<input id="email" name="email" type="text" class="form-control" disabled>
-						</div>
-					</div>
-				</div>
-       		</div>
-       		<div class="form-group" >
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">创建日期:</label>
-						<div class="col-sm-7">
-							<input name="cdatetime" id="cdatetime" type="text" value=""  class="form-control" disabled>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="row">
-						<label class="control-label col-sm-5">最近修改日期:</label>
-						<div class="col-sm-7">
-							<input name="udatetime" id="udatetime" type="text" value=""  class="form-control" disabled>
-						</div>
-					</div>
-				</div>
-       		</div>
-       		<div class="form-group" align="center">
-					<button id="btn-submit" class="btn btn-primary active" type="button">确  认</button>
-					&nbsp;&nbsp;&nbsp;
-					<button class="btn btn-primary active"  type="button" onclick="mclose();" >关  闭</button>
-		    </div>
-		</form>
-	</div>
-    
-
-    
-	<script type="text/javascript">
-	$(function(){
-		var id=GetQueryString("id");
-		var url=getContextPath()+"/security/user/info.ajax";
-		var param={};
-		param.url=url;
-		param.data={"id":id};
-		initForm(param);
-		$('#btn-submit').click(function(){
-			if($('#dataForm').validate()){
-				var dataJson = $("#dataForm").serializeJson();
-				//alert(JSON.stringify(dataJson));
-			}
-		});
-	});
-	function mclose(){
-		var index = window.parent.parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-		parent.parent.layer.close(index); //再执行关闭 
-	}
-	</script>
+    <script src="/stu/static/js/security/system/user/edit.js"></script>
 </body>
 </html>

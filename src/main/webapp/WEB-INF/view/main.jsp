@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%@ page import="com.nihao.util.JspUtil" %>
+<%
+Object obj = session.getAttribute("SESSIONINFO");
+if(obj==null)
+	response.sendRedirect(request.getContextPath());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +25,8 @@
 	rel="stylesheet">
 <link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
 <link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link href="/stu/static/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
+<script>if(window.top !== window.self){ window.top.location = window.location;}</script>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg"
@@ -35,11 +42,11 @@
 			    <ul class="nav" id="side-menu">
 			        <li class="nav-header">
 			            <div class="dropdown profile-element">
-                            <span><img alt="未上传头像" class="img-circle" src="${SESSIONINFO.info.photo}" /></span>
+                            <span><img alt="未上传头像" style="border-radius:15px;" src="${SESSIONINFO.info.photo}" width="64" height="64"/></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold"></strong></span>
-                                <span class="text-muted text-xs block">用户：${SESSIONINFO.info.username}&nbsp;<b class="caret"></b></span>
+                               <span class="block m-t-xs"><strong class="font-bold">${SESSIONINFO.info.username}</strong></span>
+                                <span class="text-muted text-xs block">${SESSIONINFO.organization.organizationname}<b class="caret"></b></span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -52,7 +59,7 @@
                                 <li><a class="J_menuItem" href="mailbox.html">信箱</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="/stu/logout">安全退出</a>
+                                <li><a href="/stu/user/logout">安全退出</a>
                                 </li>
                             </ul>
                         </div>
@@ -110,7 +117,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="/stu/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <a href="/stu/user/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/stu/page/welcome" frameborder="0" data-id="welcome.html" seamless></iframe>
@@ -262,11 +269,18 @@
 	<script src="/stu/static/hplus/js/contabs.min.js" type="text/javascript"></script>
 	<script src="/stu/static/hplus/js/plugins/pace/pace.min.js"
 		type="text/javascript"></script>
+    <script src="/stu/static/lightbox-dialog/dist/js/lobibox.min.js"></script> 
 	<script src="/stu/static/js/main.js" type="text/javascript"></script>
-</body>
-<script type="text/javascript">
-	$(function() {
+	<script type="text/javascript">
 
-	})
-</script>
+    var TopLobibox=function(type,options){
+    	Lobibox.notify(type, {
+			title:typeof(options.title)=='undefined'?null:options.title,
+			msg:typeof(options.msg)=='undefined'?null:options.msg,
+			delay:typeof(options.delay)=='undefined'?1500:options.delay,
+			soundPath:'/stu/static/sounds/'
+		});
+    };
+	</script>
+</body>
 </html>

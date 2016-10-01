@@ -26,10 +26,14 @@ public class User implements Serializable{
     private String email;
 
     private String photo;
+    
+    private Integer organizationid;
 
     private Date cdatetime;
 
     private Date udatetime;
+    
+    private Boolean flag;
 
     public Integer getId() {
         return id;
@@ -103,7 +107,15 @@ public class User implements Serializable{
         this.photo = photo == null ? null : photo.trim();
     }
 
-    public Date getCdatetime() {
+    public Integer getOrganizationid() {
+		return organizationid;
+	}
+
+	public void setOrganizationid(Integer organizationid) {
+		this.organizationid = organizationid;
+	}
+
+	public Date getCdatetime() {
         return cdatetime;
     }
 
@@ -118,4 +130,13 @@ public class User implements Serializable{
     public void setUdatetime(Date udatetime) {
         this.udatetime = udatetime;
     }
+
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
+    
 }

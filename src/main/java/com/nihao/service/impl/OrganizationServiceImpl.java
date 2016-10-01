@@ -1,8 +1,6 @@
 package com.nihao.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +10,36 @@ import com.nihao.dao.OrganizationMapper;
 import com.nihao.model.Organization;
 import com.nihao.model.view.OrganizationVO;
 import com.nihao.service.OrganizationServiceI;
-import com.nihao.util.ZuZhuangUtil;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationServiceI{
 	
 	@Autowired
 	private OrganizationMapper organizationMapper;
+	
+	private void fillIn(OrganizationVO vo){
+		if(vo!=null&&vo.getId()!=null){
+			List<Organization> list=organizationMapper.selectByParentId(vo.getId());
+			List<OrganizationVO> children=new ArrayList<>();
+			for(Organization po:list){
+				OrganizationVO child=new OrganizationVO(po);
+				fillIn(child);
+				children.add(child);
+			}
+			vo.setChildren(children);
+		}
+	}
 
 	@Override
-	public List<OrganizationVO> selectListByUserId(Integer userId) {
+	public OrganizationVO selectFullById(Integer id) {
+		Organization organization=organizationMapper.selectById(id);
+		OrganizationVO vo=new OrganizationVO(organization);
+		fillIn(vo);
+		return vo;
+	}
+
+//	@Override
+//	public List<OrganizationVO> selectListByUserId(Integer userId) {
 //		List<Organization> list=organizationMapper.selectListByUserId(userId);
 //		Iterator<Organization> it=list.iterator();
 //		List<OrganizationVO> voList=new ArrayList<>();
@@ -36,14 +54,14 @@ public class OrganizationServiceImpl implements OrganizationServiceI{
 //			ZuZhuangUtil.zuZhuang(list, vo, OrganizationVO.class);
 //		}
 //		return voList;
-		List<Organization> list=organizationMapper.selectListByUserId(userId);
-		Iterator<Organization> it=list.iterator();
-		List<OrganizationVO> voList=new ArrayList<>();
-		while(it.hasNext()){
-			voList.add(new OrganizationVO(it.next()));
-		}
-		Collections.sort(voList);
-		return voList;
-	}
+////		List<Organization> list=organizationMapper.selectListByUserId(userId);
+////		Iterator<Organization> it=list.iterator();
+////		List<OrganizationVO> voList=new ArrayList<>();
+////		while(it.hasNext()){
+////			voList.add(new OrganizationVO(it.next()));
+////		}
+////		Collections.sort(voList);
+////		return voList;
+//	}
 
 }

@@ -12,6 +12,7 @@ import com.nihao.model.User;
 import com.nihao.model.view.OrganizationVO;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.model.view.RoleVO;
+import com.nihao.model.view.UserInfoVO;
 import com.nihao.model.view.UserVO;
 import com.nihao.service.OrganizationServiceI;
 import com.nihao.service.ResourceServiceI;
@@ -40,13 +41,18 @@ public class UserServiceImpl implements UserServiceI {
 			return null;
 		UserVO vo=new UserVO();
 		List<RoleVO> roles=roleService.selectListByUserId(user.getId());
-		List<OrganizationVO> organizations=organizationService.selectListByUserId(user.getId());
+		OrganizationVO organization=organizationService.selectFullById(user.getOrganizationid());
 		List<ResourceVO> resources=resourceService.selectListByUserId(user.getId());
-		vo.setOrganizations(organizations);
+		vo.setOrganization(organization);
 		vo.setResources(resources);
 		vo.setRoles(roles);
 		vo.setInfo(user);
 		return vo;
+	}
+
+	@Override
+	public Integer update(UserInfoVO vo) {
+		return userMapper.update(vo);
 	}
 
 }

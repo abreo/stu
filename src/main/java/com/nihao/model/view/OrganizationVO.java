@@ -23,7 +23,17 @@ public class OrganizationVO implements Comparable<OrganizationVO>{
     
     private List<OrganizationVO> children;
     
-    public OrganizationVO(){}
+    private Integer parentid;
+
+	public Integer getParentid() {
+		return parentid;
+	}
+
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
+	}
+
+	public OrganizationVO(){}
     
     public OrganizationVO(Organization or){
     	this.id=or.getId();
@@ -33,6 +43,7 @@ public class OrganizationVO implements Comparable<OrganizationVO>{
     	this.seq=or.getSeq();
     	this.cdatetime=or.getCdatetime();
     	this.udatetime=or.getUdatetime();
+    	this.parentid=or.getParentid();
     }
 
 	public Integer getId() {

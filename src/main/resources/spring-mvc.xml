@@ -57,7 +57,7 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/security/**" />
+			<mvc:mapping path="/*/security/**" />
 			<mvc:mapping path="/page/security**" />
 			<bean class="com.nihao.interceptor.SecurityInterceptor">
 				<property name="outsideOfficeHoursPage">

@@ -1,15 +1,58 @@
 (function($) {
 	$.fn.serializeJson = function() {
 		var serializeObj = {};
-		$(this.serializeArray()).each(function() {
-			serializeObj[this.name] = this.value;
-		});
+		$(this.serializeArray())
+				.each(
+						function() {
+							if (this.name.indexOf("-checkbox") > 0) {
+								if (typeof (serializeObj[this.name.substring(0,
+										this.name.indexOf("-checkbox"))]) == 'undefined') {
+									if (this.name.indexOf("#int") > 0) {
+										serializeObj[this.name.substring(0,
+												this.name.indexOf("-checkbox"))] = [ parseInt($
+												.trim(this.value)) ];
+									} else {
+										serializeObj[this.name.substring(0,
+												this.name.indexOf("-checkbox"))] = [ $
+												.trim(this.value) ];
+									}
+								} else {
+									if (this.name.indexOf("#int") > 0) {
+										serializeObj[this.name.substring(0,
+												this.name.indexOf("-checkbox"))]
+												.push(parseInt($
+														.trim(this.value)));
+									} else {
+										serializeObj[this.name.substring(0,
+												this.name.indexOf("-checkbox"))]
+												.push($.trim(this.value));
+									}
+								}
+							} else {
+								if (this.name.indexOf("#int") > 0) {
+									serializeObj[this.name] = parseInt($
+											.trim(this.value));
+								} else {
+									serializeObj[this.name] = $
+											.trim(this.value);
+								}
+							}
+						});
 		return serializeObj;
 	};
-	
+
+	$.fn.sound = function(sound) {
+		$(this).html(
+				'<audio autoplay="autoplay">'
+						+ '<source src="/stu/static/sounds/' + sound
+						+ '" type="audio/wav"/>'
+						+ '<source src="/stu/static/sounds/' + sound
+						+ '" type="audio/mpeg"/></audio>');
+	};
+
 	$.fn.validate = function() {
 		var check = true;
-		var valiTags = $(this).find('.need-validate');
+		var valiTags = $(this).find('[validation]');
 		for (var i = 0, len = valiTags.length; i < len; i++) {
 			var valiStrs = $(valiTags[i]).attr('validation');
 			if (typeof (valiStrs) != 'undefined') {
@@ -19,7 +62,7 @@
 					switch (valiStr[j]) {
 					case 'required':
 						if ($.trim($(valiTags[i]).val()) == '') {
-							message = message + '必输项!';
+							message = message + '不能为空!';
 						}
 						break;
 					case 'cellphone':
@@ -35,8 +78,8 @@
 				}
 				if (message != '') {
 					$(valiTags[i]).attr('title', message);
-					$(valiTags[i]).parent().removeClass('has-success');
 					$(valiTags[i]).parent().addClass('has-error');
+					$(valiTags[i]).parent().removeClass('has-success');
 					$(valiTags[i]).tooltip('show');
 					check = false;
 				} else {
@@ -47,20 +90,26 @@
 				}
 			}
 		}
+		if (!check) {
+			$("<div class='hidden need-remove-sound'></div>").sound("sound2.ogg");
+//			$(this).append(app);
+//			window.setTimeout(function() {
+//				$('.need-remove-sound').remove();
+//			}, 1500);
+		}
 		return check;
 	};
 })(jQuery);
-
-$(function() {
-	 $(".need-validate").bind("input propertychange", function() {
-		 if($(this).attr('title')!=''){
-			 $(this).attr('title', '');
+$(document).ready(function() {
+	$("form").find('[validation]').bind("input propertychange", function() {
+		if($(this).parent().hasClass('has-error')){
+			$(this).attr('title', '');
 			 $(this).parent().removeClass('has-error');
 			 $(this).parent().addClass('has-success');
 			 $(this).tooltip('destroy');
-		 }
-	 });
-})
+		}
+	});
+});
 
 /**
  * 获取contextPath
@@ -95,15 +144,25 @@ function initForm(param, tag) {
 		dataType : 'json',
 		success : function(data) {
 			if (data.code == 403) {
-				alert(data.message);
+				$("<div class='hidden need-remove-sound'></div>").sound("sound2.ogg");
+				Lobibox.alert('warning', {
+					msg : data.message
+				});
 			} else {
 				for ( var key in data.data) {
 					$("#" + key).val(data.data[key]);
+					if (typeof ($("#" + key).attr("disabled")) != "undefined") {
+						$("#" + key).attr('title', data.data[key]);
+					}
 				}
 			}
 		},
-		error : function() {
-			alert("异常!");
+		error : function(errorThrown) {
+			$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+			Lobibox.alert('error', {
+				title:errorThrown.status+'错误',
+    			msg:'错误信息:'+errorThrown.statusText
+			});
 		}
 	});
 }

@@ -59,7 +59,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 			logger.info("NO_SECURITY");
 			if(path.contains(".ajax")){
 				request.setAttribute("path", path);
-				request.getRequestDispatcher("/ajax/security").forward(request, response);
+				request.getRequestDispatcher("/ajax/returnsecurity").forward(request, response);
 				return false;
 			}
 			request.setAttribute("message", "没有权限："+path);
@@ -69,7 +69,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 		else{
 			logger.info("NO_SESSION");
 			if(path.contains(".ajax")){
-				request.getRequestDispatcher("/ajax/session").forward(request, response);
+				request.getRequestDispatcher("/ajax/returnsession").forward(request, response);
 				return false;
 			}
 			request.setAttribute("message", "没有登录或登录已超时，请重新登录");
