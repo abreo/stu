@@ -40,8 +40,11 @@
 			separator=",">
 			#{item,jdbcType=INTEGER}
 		</foreach>
-		<if test="username!=null">
+		<if test="username != null">
 			and username like concat('%',#{username},'%')
+		</if>
+		<if test="loginname != null">
+			and loginname like concat('%',#{loginname},'%')
 		</if>
 		and flag=1
 	</select>
@@ -62,8 +65,11 @@
 			separator=",">
 			#{item,jdbcType=INTEGER}
 		</foreach>
-		<if test="username!=null">
+		<if test="username != null">
 			and a.username like concat('%',#{username},'%')
+		</if>
+		<if test="loginname != null">
+			and a.loginname like concat('%',#{loginname},'%')
 		</if>
 		<if test="sort!=null">
 			order by ${sort}

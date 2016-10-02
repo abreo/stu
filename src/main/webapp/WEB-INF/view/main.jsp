@@ -42,7 +42,7 @@ if(obj==null)
 			    <ul class="nav" id="side-menu">
 			        <li class="nav-header">
 			            <div class="dropdown profile-element">
-                            <span><img alt="未上传头像" style="border-radius:15px;" src="${SESSIONINFO.info.photo}" width="64" height="64"/></span>
+                            <span><img alt="未上传头像" style="border-radius:50px;" src="${SESSIONINFO.info.photo}" width="64" height="64"/></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold">${SESSIONINFO.info.username}</strong></span>

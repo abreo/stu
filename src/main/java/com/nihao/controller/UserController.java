@@ -73,10 +73,6 @@ public class UserController {
 		if(l>0){
 			RowBounds rb=new RowBounds((vo.getPageNumber()-1)*vo.getPageSize(), vo.getPageSize());
 			List<UserDTO> list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", vo.getParam(), rb);
-			if(list.isEmpty()&&vo.getPageNumber()>1){
-				rb=new RowBounds((vo.getPageNumber()-2)*vo.getPageSize(), vo.getPageSize());
-				list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", vo.getParam(), rb);
-			}
 			bf.setRows(list);
 		}
 		else{

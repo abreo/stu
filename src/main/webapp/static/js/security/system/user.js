@@ -18,8 +18,11 @@
 						//alert(JSON.stringify($('#param-form').serializeJson()));
 						$('#param-form input[name="organization-checkbox#int"]').removeAttr('checked');
 						$('#param-form input[data-id="'+data.id+'"]').prop('checked',true);
+						$('#param-form input[name="loginname"]').val('');
+						$('#param-form input[name="username"]').val('');
 						//alert($('#param-form input[name="organization"]').val());
-						data_table.bootstrapTable('refresh');
+						//data_table.bootstrapTable('refresh');
+						data_table.bootstrapTable('selectPage',1);
 					}
 				});
 				data_table.bootstrapTable({
@@ -39,15 +42,15 @@
 					showColumns:true,
 					pageList:[10,20,30,40,50,100,200],
 					queryParams:function(params){
-						var param = {};
-						if($.trim($('#username').val())!=""){
-							param.username=$.trim($('#username').val());
-						}
-						if(typeof($('#param-form').serializeJson().organization)!='undefined'){
-							param.organization=$('#param-form').serializeJson().organization;
-						}
-						else{
+						var param = $('#param-form').serializeJson();
+						if(typeof(param.organization)=='undefined'){
 							param.organization=[-1];
+						}
+						if($.trim(param.loginname)==''){
+							 delete param.loginname;
+						}
+						if($.trim(param.username)==''){
+							 delete param.username;
 						}
 						var postData = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
 							      pageSize: params.pageSize,   //页面大小
@@ -66,6 +69,20 @@
 				    			delay:1500
 				    		}); 
 						}
+						else{
+							if(data.rows.length==0&&data.total>0){
+								data_table.bootstrapTable('refresh');
+//								this.pageNumber=this.pageNumber-1;
+//								data_table.bootstrapTable('refresh');
+							}
+						}
+					},
+					onLoadError:function(status){
+						$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+						Lobibox.alert('error', {
+							title:'错误',
+			    			msg:'错误信息:'+status
+						});
 					},
 				    columns: [ {
 				    	field: 'state',
@@ -112,14 +129,17 @@
     	
 		
 		$('#search_btn').click(function(){
-			parent.layer.open({
+			layer.open({
 			    type: 2,
 			    title: '查找',
 			    shadeClose: true,
 			    shade: 0.5,
-			    area: ['800px', '350px'],
+			    area: ['500px', '250px'],
 			    content: getContextPath()+'/page/security_system_user_search?',
-			    end:refreshTable
+			    end:function(){
+			    	$('#tree').treeview('expandAll', { silent: true });
+			    	data_table.bootstrapTable('selectPage',1);
+			    }
 		    });
 		});
 		
