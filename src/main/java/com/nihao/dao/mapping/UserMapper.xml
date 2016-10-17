@@ -25,8 +25,7 @@
 		</association>
 	</resultMap>
 
-	<select id="selectOneByLoginnameAndPwd" resultType="com.nihao.model.User"
-		parameterType="java.util.HashMap">
+	<select id="selectOneByLoginnameAndPwd" resultType="com.nihao.model.User">
 		select * from user
 		where loginname=#{loginname,jdbcType=VARCHAR}
 		and pwd=#{pwd,jdbcType=VARCHAR} and flag=1

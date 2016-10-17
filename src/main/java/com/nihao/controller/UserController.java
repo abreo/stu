@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.nihao.dao.impl.CommonDao;
-import com.nihao.model.Organization;
 import com.nihao.model.User;
 import com.nihao.model.dto.UserDTO;
 import com.nihao.model.view.ControllerVO;

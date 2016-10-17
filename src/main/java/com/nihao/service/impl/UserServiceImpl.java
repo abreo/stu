@@ -1,8 +1,6 @@
 package com.nihao.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +31,7 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public UserVO login(String loginname, String pwd) {
-		Map<String,Object> map=new HashMap<>();
-		map.put("loginname", loginname);
-		map.put("pwd", MD5Util.md5(pwd));
-		User user=userMapper.selectOneByLoginnameAndPwd(map);
+		User user=userMapper.selectOneByLoginnameAndPwd(loginname,MD5Util.md5(pwd));
 		if(user==null)
 			return null;
 		UserVO vo=new UserVO();
