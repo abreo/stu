@@ -3,7 +3,7 @@
 <mapper namespace="com.nihao.dao.RoleMapper" >
   <resultMap id="BaseResultMap" type="com.nihao.model.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="rolenname" property="rolenname" jdbcType="VARCHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
     <result column="iconcls" property="iconcls" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="seq" property="seq" jdbcType="INTEGER" />
@@ -16,6 +16,50 @@
   from role a,user2role b
   where a.id=b.roleid
   and b.userid=#{userId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectListByUserIdPagination" resultType="com.nihao.model.Role" parameterType="java.util.HashMap">
+  select a.*
+  from role a,user2role b
+  where a.id=b.roleid 
+  and b.userid=#{userid,jdbcType=INTEGER}
+		<if test="rolename != null">
+			and a.rolename like concat('%',#{rolename},'%')
+		</if>
+		<if test="sort!=null">
+			order by ${sort}
+			<if test="order!=null">
+				${order}
+			</if>
+		</if>
+  </select>
+  
+  <select id="selectCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Long">
+	select count(*)
+  from role a,user2role b
+  where a.id=b.roleid 
+  and b.userid=#{userid,jdbcType=INTEGER}
+		<if test="rolename != null">
+			and a.rolename like concat('%',#{rolename},'%')
+		</if>
+	</select>
+  
+  <delete id="deleteUser2RoleByUserId" parameterType="java.lang.Integer">
+  delete from user2role where userid=#{userId}
+  </delete>
+  
+  <insert id="batchInsertUser2Role" parameterType="java.util.List">
+  insert into user2role (userid,roleid) values
+  <foreach collection="list" item="item" separator =",">
+  (
+  #{item.userId},#{item.roleId}
+  )
+  </foreach>
+  </insert>
+  
+  <select id="selectRoleById" parameterType="java.lang.Integer" resultType="com.nihao.model.Role">
+  select * from role where id=#{id}
   </select>
   
 </mapper>

@@ -63,7 +63,7 @@
 					},
 					onLoadSuccess:function(data){
 						if(data.code!=200){
-							top.TopLobibox('error', {
+							top.TopLobibox('notify','error', {
 				    			title:'获取数据失败',
 				    			msg:data.message,
 				    			delay:1500
@@ -89,12 +89,12 @@
 				        radio: true
 				    },{
 				        field: 'loginname',
-				        title: '登录名',
+				        title: '账号',
 				        align: 'center',
 		                valign: 'middle'
 				    },{
 				    	field: 'username',
-				        title: '用户名',
+				        title: '姓名',
 				        align: 'center',
 		                valign: 'middle'
 				    },{
@@ -127,6 +127,63 @@
 			}
 		});
     	
+    	$('#role_btn').click(function(){
+    		if(!checkSelected()){
+				return;
+			}
+    		parent.layer.open({
+			    type: 2,
+			    title: '分配角色',
+			    shadeClose: true,
+			    shade: 0.5,
+			    area: ['350px', '420px'],
+			    content: getContextPath()+'/page/security_system_user_authorize?id='+data_table.bootstrapTable('getSelections')[0].id,
+			    btn:['确认','取消'],
+			    yes:function(index, layero){
+			        var body = parent.layer.getChildFrame('body', index);
+			        var s=body.find('#select2 option');
+					var param={},roleIds=[];
+					for(var i=0,len=s.length;i<len;i++){
+						roleIds.push(parseInt($(s[i]).val()));
+					}
+					param.userId=data_table.bootstrapTable('getSelections')[0].id;
+					param.roleIds=roleIds;
+					$.ajax({
+						type : 'post',
+						url : getContextPath()+'/role/security/authorize.ajax',
+						data : JSON.stringify(param),
+						contentType:'application/json',
+						dataType : 'json',
+						success : function(data) {
+							if (data.code == 200) {
+								top.TopLobibox('notify','success', {
+									title:'授权成功',
+					    			msg:'返回信息:'+data.message
+								});
+							} else {
+								top.TopLobibox('alert','warning', {
+									title : 'warning',
+									msg : data.message,
+									sound : 'sound2.ogg'
+								});
+							}
+							parent.layer.close(index);
+						},
+						error : function(errorThrown) {
+							top.TopLobibox('alert','error', {
+								title:errorThrown.status+'错误',
+				    			msg:'错误信息:'+errorThrown.statusText,
+				    			sound : 'sound2.ogg'
+							});
+							parent.layer.close(index);
+						}
+					});
+			    },
+			    btn2:function(index, layero){
+			    	parent.layer.close(index);
+			    }
+    		});
+    	});
 		
 		$('#search_btn').click(function(){
 			layer.open({
@@ -136,9 +193,19 @@
 			    shade: 0.5,
 			    area: ['500px', '250px'],
 			    content: getContextPath()+'/page/security_system_user_search?',
-			    end:function(){
-			    	$('#tree').treeview('expandAll', { silent: true });
+			    btn:['确认','取消'],
+			    yes:function(index, layero){
+			    	var body = layer.getChildFrame('body', index);
+			        var param=body.find('#form1').serializeJson();
+					$('input[name="loginname"]').val(param.loginname);
+					$('input[name="username"]').val(param.username);
+					$('input[name="organization-checkbox#int"]').prop('checked',true);
+					$('#tree').treeview('expandAll', { silent: true });
 			    	data_table.bootstrapTable('selectPage',1);
+					layer.close(index);
+			    },
+			    btn2:function(index, layero){
+			    	layer.close(index);
 			    }
 		    });
 		});
@@ -152,9 +219,50 @@
 			    title: '编辑',
 			    shadeClose: true,
 			    shade: 0.5,
-			    area: ['800px', '350px'],
+			    area: ['600px', '350px'],
 			    content: getContextPath()+'/page/security_system_user_edit?id='+data_table.bootstrapTable('getSelections')[0].id, //iframe的url
-			    end:refreshTable
+			    btn:['确认','取消'],
+			    yes:function(index, layero){
+			        var body = parent.layer.getChildFrame('body', index);
+			        var dataForm=body.find('#dataForm');
+			        if($(dataForm).validate()){
+				        var dataJson=body.find(dataForm).serializeJson();
+						$.ajax({
+						    type:'post',
+						    url:getContextPath()+'/user/security/update.ajax',
+						    data : JSON.stringify(dataJson),
+						    contentType:'application/json',
+						    dataType : 'json',
+						    success : function(data) {
+							    if(data.code == 200){
+							    	Lobibox.notify('success', {
+						    			msg:data.message,
+						    			delay:1500,
+						    			soundPath:'/stu/static/sounds/'
+						    		});
+								    parent.layer.close(index);
+								    refreshTable();
+							    }
+							    else{
+								    $("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+								    Lobibox.alert('error', {
+									    msg:data.message
+								    });
+							    }
+						    },
+						    error : function(errorThrown) {
+							    $("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+							    Lobibox.alert('error', {
+								    title:errorThrown.status+'错误',
+				    			    msg:'错误信息:'+errorThrown.statusText
+							    });
+						    }
+					    });
+			        }
+			    },
+			    btn2:function(index, layero){
+			    	parent.layer.close(index);
+			    }
 		    });
 		});
 		
@@ -204,19 +312,3 @@
 			});
     	});
     });
-    var checkSelected=function(){
-    	var selects=data_table.bootstrapTable('getSelections');
-		var selected=selects[0];
-		if(selected==undefined){
-			top.TopLobibox('info', {
-    			title:'未选择',
-    			msg:'请选择一条记录',
-    			delay:1500,
-    			soundPath:'/stu/static/sounds/'
-    		});
-			return false;
-		}
-		else{
-			return true;
-		}
-    };

@@ -118,7 +118,7 @@ public class UserController {
 	@ResponseBody
 	public String delete(Integer id){
 		JSONResult jr=new JSONResult();
-		int i=commonDao.deleteByPrimaryKey("com.nihao.dao.UserMapper.deleteById", id);
+		int i=userService.deleteById(id);
 		if(i==1){
 			jr.setCode(200);
 			jr.setMessage("删除成功");
@@ -130,4 +130,19 @@ public class UserController {
 		return JSON.toJSONString(jr);
 	}
 	
+	@RequestMapping(value="/security/organization.ajax",method= RequestMethod.POST)
+	@ResponseBody
+	public String updateOrganization(User user){
+		JSONResult jr=new JSONResult();
+		int i=userService.updateOrganizationById(user);
+		if(i==1){
+			jr.setCode(200);
+			jr.setMessage("修改机构成功");
+		}
+		else{
+			jr.setCode(500);
+			jr.setMessage("修改机构失败");
+		}
+		return JSON.toJSONString(jr);
+	}
 }

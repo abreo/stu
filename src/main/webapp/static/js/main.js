@@ -92,10 +92,6 @@
 		}
 		if (!check) {
 			$("<div class='hidden need-remove-sound'></div>").sound("sound2.ogg");
-//			$(this).append(app);
-//			window.setTimeout(function() {
-//				$('.need-remove-sound').remove();
-//			}, 1500);
 		}
 		return check;
 	};
@@ -104,12 +100,33 @@ $(document).ready(function() {
 	$("form").find('[validation]').bind("input propertychange", function() {
 		if($(this).parent().hasClass('has-error')){
 			$(this).attr('title', '');
-			 $(this).parent().removeClass('has-error');
-			 $(this).parent().addClass('has-success');
-			 $(this).tooltip('destroy');
+			$(this).parent().removeClass('has-error');
+			$(this).tooltip('destroy');
+			//var idd=$(this).attr('aria-describedby');
+			//$(this).removeAttr('aria-describedby');
+			//$(this).removeAttr('data-original-title');
+			//$('#'+idd).remove();
+			//$(this).next().remove();
 		}
 	});
 });
+
+var checkSelected=function(){
+	var selects=data_table.bootstrapTable('getSelections');
+	var selected=selects[0];
+	if(selected==undefined){
+		top.TopLobibox('notify','info', {
+			title:'未选择',
+			msg:'请选择一条记录',
+			delay:1500,
+			soundPath:'/stu/static/sounds/'
+		});
+		return false;
+	}
+	else{
+		return true;
+	}
+};
 
 /**
  * 获取contextPath

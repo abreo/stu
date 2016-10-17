@@ -9,44 +9,139 @@
 <meta name="keywords" content="STU">
 <meta name="description" content="STU">
 <!-- css -->
-<link rel="/stu/static/hplus/shortcut icon" href="favicon.ico">
-    
+<link href="/stu/static/plugins/hplus/css/bootstrap.min14ed.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/font-awesome.min93e3.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/animate.min.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/style.min862f.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
+<link href="/stu/static/plugins/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
+<style type="text/css">
 
-<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
-<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-<link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
-<link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-<link href="/stu/static/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-<link href="/stu/static/hplus/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
-<link href="/stu/static/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
+body,ul,li{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #333;
+}
+div.audio{
+    position: relative;
+    top: 100px;
+    left: 100px;
+    background: #eee;
+    width: 400px;
+    height: 400px;
+    transition: all 0.3s;
+    box-shadow: 33px 24px 10px 0 rgba(0, 0, 0, 0.2);
+}
+div.colorizer{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 400px;
+    height: 400px;
+    transition: all 0.3s;
+    z-index:3;
+}
+div.echolizer{
+    background: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index:10;
+    width: 0;
+    height: 4px;
+    transition: all 0.3s;
+}
+div.audio img{
+    width: 400px;
+}
+div.disk{
+    background-image: url("/stu/static/black/img/cd.png");
+    width: 350px;
+    height: 350px;
+    position: absolute;
+    right: -140px;
+    background-size: cover;
+    z-index:-1;
+    top: 34px;
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+    border-radius: 50%;
+}
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}  
+</style>
 </head>
 <body id="body">
 tyuijokplvygbhn
-<div id="newMessageDIV" style="display:none"></div>   
   <input type="button" id="ww" value="dada"/>
   <input type="button" id="a" value="kkkkk">
+  <div class="audio">
+    <div class="echolizer"></div>
+    <div class="colorizer"></div>
+    <div class="disk"></div>
+    <img src="/stu/static/black/img/cover.jpg">
+</div>
     <!-- js -->
-    <script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="/stu/static/hplus/js/content.min.js?v=1.0.0"></script>
-    <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="/stu/static/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
-    <script src="/stu/static/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="/stu/static/hplus/js/plugins/treeview/bootstrap-treeview.js"></script>
-    <script src="/stu/static/lightbox-dialog/dist/js/lobibox.min.js"></script> 
+    <script src="/stu/static/plugins/hplus/js/jquery.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/bootstrap.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/content.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="/stu/static/plugins/lightbox-dialog/dist/js/lobibox.min.js"></script> 
     <script src="/stu/static/js/main.js"></script>
-    <script src="/stu/static/jQuery.resizeEnd.min.js"></script>
+    <script src="/stu/static/plugins/jQuery.resizeEnd.min.js"></script>
+    <script src="/stu/static/black/js/colorizer.js"></script>
     <script type="text/javascript">
     $(function(){
     	$('#ww').click(function(){
-    		$('#newMessageDIV').html('<embed src="/stu/static/sounds/7499.mp3"/>'); 
+    		//$('#newMessageDIV').html('<embed src="/stu/static/sounds/7499.mp3"/>');
+    		$('.audio').remove();
     	});
     	$('#a').click(function(){
-    		Lobibox.notify('success', {
-    			msg:'cewcewvwrv',
-    			soundPath:'/stu/static/sounds/'
+    		$.colorizer("div.colorizer", {
+    		    file: "/stu/static/black/Shahre_Man.mp3",
+    		    shadow: ".colorizer",
+    		    echolizer: ".echolizer"
     		});
-    	});
+    	}); 
     });
     </script>
 </body>

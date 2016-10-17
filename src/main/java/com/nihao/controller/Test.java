@@ -30,7 +30,6 @@ public class Test {
 //		String pathInfo=request.getPathInfo();
 //		System.out.println("------------");
 	}
-	
 	@RequestMapping(value="/test",produces="text/html;charset=UTF-8" )
 	@ResponseBody
 	public String ttt(String sortName,String sortOrder){

@@ -139,4 +139,9 @@
 	<update id="deleteById" parameterType="java.lang.Integer">
 	update user set flag=0,udatetime=now() where id=#{id}
 	</update>
+	
+    <update id="updateOrganizationById" parameterType="com.nihao.model.User">
+    update user set organizationid=#{organizationid} where id=#{id}
+    </update>
+    
 </mapper>

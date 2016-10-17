@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nihao.dao.RoleMapper;
 import com.nihao.model.Role;
+import com.nihao.model.dto.User2RoleDTO;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.model.view.RoleVO;
 import com.nihao.service.ResourceServiceI;
@@ -46,6 +47,21 @@ public class RoleServiceImpl implements RoleServiceI{
 		}
 		Collections.sort(voList);
 		return voList;
+	}
+
+	@Override
+	public void updateUser2Role(Integer userId,Integer[] roleIds) {
+		roleMapper.deleteUser2RoleByUserId(userId);
+		if(roleIds.length==0)
+			return;
+		List<User2RoleDTO> list=new ArrayList<>(roleIds.length);
+		for(Integer roleId:roleIds){
+			User2RoleDTO user2RoleDTO=new User2RoleDTO();
+			user2RoleDTO.setUserId(userId);
+			user2RoleDTO.setRoleId(roleId);
+			list.add(user2RoleDTO);
+		}
+		roleMapper.batchInsertUser2Role(list);
 	}
 
 }

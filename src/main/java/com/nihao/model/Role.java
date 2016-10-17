@@ -11,7 +11,7 @@ public class Role implements Serializable{
 
 	private Integer id;
 
-    private String rolenname;
+    private String rolename;
 
     private String iconcls;
 
@@ -31,15 +31,15 @@ public class Role implements Serializable{
         this.id = id;
     }
 
-    public String getRolenname() {
-        return rolenname;
-    }
+    public String getRolename() {
+		return rolename;
+	}
 
-    public void setRolenname(String rolenname) {
-        this.rolenname = rolenname == null ? null : rolenname.trim();
-    }
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
 
-    public String getIconcls() {
+	public String getIconcls() {
         return iconcls;
     }
 

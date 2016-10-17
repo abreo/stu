@@ -3,6 +3,7 @@ package cn;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
@@ -15,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.nihao.dao.LogindataMapper;
 import com.nihao.dao.impl.CommonDao;
 import com.nihao.model.Logindata;
-import com.nihao.model.User;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.service.ResourceServiceI;
 import com.nihao.service.TestServiceI;
@@ -76,8 +76,13 @@ public class Tt {
 	 @Test
 	 public void testlist(){
 		 RowBounds rb=new RowBounds(1, 10);
-		 List<User> list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", new HashMap(), rb);
+		 Map map=new HashMap<>();
+		 map.put("loginname", "root");
+		 map.put("pwd", "e10adc3949ba59abbe56e057f20f883e");
+		 List<Object> list=commonDao.selectListByParamPagenation
+				 ("com.nihao.dao.UserMapper.test", map, rb);
 		 
 	 }
+	 
 	
 }

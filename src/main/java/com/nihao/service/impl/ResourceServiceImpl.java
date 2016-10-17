@@ -47,9 +47,9 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	@Override
 	public List<ResourceVO> selectListByUserId(Integer userId) {
 		List<Resource> list=resourceMapper.selectListByUserId(userId);
-		Set<Resource> set=new HashSet();
-		set.addAll(list);
-		Iterator<Resource> it=set.iterator();
+		Set<Resource> set=new HashSet<>(list);
+		list=new ArrayList<>(set);
+		Iterator<Resource> it=list.iterator();
 		List<ResourceVO> voList=new ArrayList<>();
 		while (it.hasNext()) {
 			Resource re = it.next();

@@ -145,5 +145,25 @@ public class ResourceVO implements Comparable<ResourceVO>{
 			return this.getSeq()-o.getSeq();
 		}
 	}
-    
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof ResourceVO){
+			ResourceVO resourceVO=(ResourceVO)obj;
+			if(resourceVO.getId().equals(this.id)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		if(this.id!=null){
+			return this.id.hashCode();
+		}
+		else{
+			return super.hashCode();
+		}
+	}
 }

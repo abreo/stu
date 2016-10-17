@@ -18,14 +18,13 @@ if(obj==null)
 <meta name="keywords" content="STU">
 <meta name="description" content="STU">
 <!-- css -->
-<link rel="/stu/static/hplus/shortcut icon" href="favicon.ico">
-<link href="/stu/static/hplus/css/bootstrap.min14ed.css?v=3.3.6"
+<link href="/stu/static/plugins/hplus/css/bootstrap.min14ed.css"
 	rel="stylesheet">
-<link href="/stu/static/hplus/css/font-awesome.min93e3.css?v=4.4.0"
+<link href="/stu/static/plugins/hplus/css/font-awesome.min93e3.css"
 	rel="stylesheet">
-<link href="/stu/static/hplus/css/animate.min.css" rel="stylesheet">
-<link href="/stu/static/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-<link href="/stu/static/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/animate.min.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/style.min862f.css" rel="stylesheet">
+<link href="/stu/static/plugins/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
 <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
 </head>
 
@@ -255,31 +254,40 @@ if(obj==null)
 
 
 	<!-- js -->
-	<script src="/stu/static/hplus/js/jquery.min.js?v=2.1.4"
+	<script src="/stu/static/plugins/hplus/js/jquery.min.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/bootstrap.min.js?v=3.3.6"
+	<script src="/stu/static/plugins/hplus/js/bootstrap.min.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/metisMenu/jquery.metisMenu.js"
+	<script src="/stu/static/plugins/hplus/js/plugins/metisMenu/jquery.metisMenu.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"
+	<script src="/stu/static/plugins/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/layer/layer.min.js"
+	<script src="/stu/static/plugins/hplus/js/plugins/layer/layer.min.js"
 		type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/hplus.min.js?v=4.1.0" type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/contabs.min.js" type="text/javascript"></script>
-	<script src="/stu/static/hplus/js/plugins/pace/pace.min.js"
+	<script src="/stu/static/plugins/hplus/js/hplus.min.js" type="text/javascript"></script>
+	<script src="/stu/static/plugins/hplus/js/contabs.min.js" type="text/javascript"></script>
+	<script src="/stu/static/plugins/hplus/js/plugins/pace/pace.min.js"
 		type="text/javascript"></script>
-    <script src="/stu/static/lightbox-dialog/dist/js/lobibox.min.js"></script> 
+    <script src="/stu/static/plugins/lightbox-dialog/dist/js/lobibox.min.js"></script> 
 	<script src="/stu/static/js/main.js" type="text/javascript"></script>
 	<script type="text/javascript">
 
-    var TopLobibox=function(type,options){
-    	Lobibox.notify(type, {
-			title:typeof(options.title)=='undefined'?null:options.title,
-			msg:typeof(options.msg)=='undefined'?null:options.msg,
-			delay:typeof(options.delay)=='undefined'?1500:options.delay,
-			soundPath:'/stu/static/sounds/'
-		});
+    var TopLobibox=function(model,type,options){
+    	if(model=='notify'){
+    		Lobibox.notify(type, {
+    			title:typeof(options.title)=='undefined'?null:options.title,
+    			msg:typeof(options.msg)=='undefined'?null:options.msg,
+    			delay:typeof(options.delay)=='undefined'?1500:options.delay,
+    			soundPath:'/stu/static/sounds/'
+    		});
+    	}
+    	else if(model=='alert'){
+    		$("<div class='hidden need-remove-sound'></div>").sound(typeof(options.sound)=='undefined'?'sound1.ogg':options.sound);
+    		Lobibox.alert(type, {
+    			title:typeof(options.title)=='undefined'?null:options.title,
+    	    	msg:typeof(options.msg)=='undefined'?null:options.msg
+			});
+    	}
     };
 	</script>
 </body>

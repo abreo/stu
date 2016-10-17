@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title>STU - 用户编辑</title>
+<meta name="keywords" content="STU">
+<meta name="description" content="STU">
+<!-- css -->
+<link href="/stu/static/plugins/hplus/css/bootstrap.min14ed.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/font-awesome.min93e3.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/animate.min.css" rel="stylesheet">
+<link href="/stu/static/plugins/hplus/css/style.min862f.css" rel="stylesheet">
+<link href="/stu/static/plugins/lightbox-dialog/dist/css/Lobibox.min.css"" rel="stylesheet">
+<style type="text/css">
+</style>
+</head>
+<body style="padding: 3px;">
+    <!-- <img id="photo" src="/stu/static/image/default.jpg" alt="未上传头像" width="140px" height="140px"> -->
+  <form method="get" class="form-horizontal" id="dataForm">
+    <div style="display: none;">
+	    <input type="hidden" name="id" id="id" value="">
+		<input type="hidden" name="photo" id="photo" value="" disabled>
+	</div>
+    <table class="table table-bordered">
+        <tr>
+            <td rowspan="5" style="text-align: center;vertical-align: top;">
+                <img style="border-radius:15px;" id="photo-img" src="/stu/static/image/default.jpg" alt="未上传头像" width="140px" height="140px">
+            </td>
+            <td>登录名</td>
+            <td>
+                <input id="loginname" name="loginname" value="" type="text" 
+                    class="form-control need-validate" disabled
+					data-placement="bottom" title="" validation="required">
+            </td>
+            <td>姓名</td>
+            <td>
+                <input id="username" name="username" type="text" 
+                    class="form-control need-validate" 
+					data-placement="bottom" title="" validation="required">
+            </td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td>
+                <select class="form-control need-validate" id="gender" name="gender">
+				    <option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+            </td>
+            <td>电话</td>
+            <td>
+                <input id="phonenum" name="phonenum" type="text" class="form-control need-validate"
+				    data-placement="bottom" title=""  validation="cellphone">
+            </td>
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td>
+                <input id="birthday" name="birthday" type="text" class="form-control layer-date" 
+				    onclick="laydate({istime: false, format: 'YYYY-MM-DD', festival: true})">
+            </td>
+            <td>邮箱</td>
+            <td>
+                <input id="email" name="email" type="text" class="form-control" 
+					 value="" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>机构</td>
+            <td>
+                <input id="organizationname" name="organizationname" type="text" class="form-control" 
+					 value="" disabled>
+            </td>
+            <td>创建时间</td>
+            <td>
+                <input name="cdatetime" id="cdatetime" type="text" value=""  class="form-control" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>修改时间</td>
+            <td>
+                <input name="udatetime" id="udatetime" type="text" value=""  class="form-control" disabled>
+            </td>
+            <td colspan="2" align="center">
+                <button id="btn-submit" class="btn btn-primary active" type="button">确  认</button>
+					&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-primary active"  type="button" onclick="mclose();" >关  闭</button>
+            </td>
+        </tr>
+    </table>
+  </form>  
+  
+    <!-- js -->
+    <script src="/stu/static/plugins/hplus/js/jquery.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/bootstrap.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/content.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="/stu/static/plugins/lightbox-dialog/dist/js/lobibox.min.js""></script> 
+    <script src="/stu/static/js/main.js"></script>
+    <script src="/stu/static/js/security/system/user/edit.js"></script>
+</body>
+</html>

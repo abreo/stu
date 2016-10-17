@@ -1,7 +1,11 @@
 package com.nihao.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Resource implements Serializable{
 
@@ -104,4 +108,25 @@ public class Resource implements Serializable{
     public void setUdatetime(Date udatetime) {
         this.udatetime = udatetime;
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Resource){
+			Resource resource=(Resource)obj;
+			if(resource.getId().equals(this.id))
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		if(this.id!=null){
+			return this.id.hashCode();
+		}
+		else{
+			return super.hashCode();
+		}
+	}
+    
 }
