@@ -65,13 +65,13 @@ public class UserController {
 	
 	@RequestMapping(value="/security/list.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
 	@ResponseBody
-	public String list(@RequestBody ControllerVO vo){
-		Long l=commonDao.countByParam("com.nihao.dao.UserMapper.selectCount", vo.getParam());
+	public String list(@RequestBody ControllerVO controllerVO){
+		Long l=commonDao.countByParam("com.nihao.dao.UserMapper.selectCount", controllerVO.getParam());
 		PageResultForBootstrap bf=new PageResultForBootstrap();
 		bf.setTotal(l);
 		if(l>0){
-			RowBounds rb=new RowBounds((vo.getPageNumber()-1)*vo.getPageSize(), vo.getPageSize());
-			List<UserDTO> list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", vo.getParam(), rb);
+			RowBounds rb=new RowBounds((controllerVO.getPageNumber()-1)*controllerVO.getPageSize(), controllerVO.getPageSize());
+			List<UserDTO> list=commonDao.selectListByParamPagenation("com.nihao.dao.UserMapper.selectUserList", controllerVO.getParam(), rb);
 			bf.setRows(list);
 		}
 		else{
@@ -98,19 +98,19 @@ public class UserController {
 		if(vo.getId()==null){
 			jr.setCode(406);
 			jr.setMessage("缺少请求参数:ID");
-			return JSON.toJSONString(jr);
 		}
 		else{
 			Integer i=userService.update(vo);
-			jr.setCode(200);
 			if(i==1){
+				jr.setCode(200);
 				jr.setMessage("修改成功");
 			}
 			else{
+				jr.setCode(500);
 				jr.setMessage("修改失败，影响条目数:"+i);
 			}
-			return JSON.toJSONString(jr,SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
 		}
+		return JSON.toJSONString(jr,SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
 	}
 	
 	@RequestMapping(value="/security/delete.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
@@ -131,7 +131,7 @@ public class UserController {
 	
 	@RequestMapping(value="/security/organization.ajax",method= RequestMethod.POST)
 	@ResponseBody
-	public String updateOrganization(User user){
+	public String updateOrganization(@RequestBody User user){
 		JSONResult jr=new JSONResult();
 		int i=userService.updateOrganizationById(user);
 		if(i==1){

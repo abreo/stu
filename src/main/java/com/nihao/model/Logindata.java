@@ -13,7 +13,7 @@ public class Logindata implements Serializable{
 
     private String loginname;
 
-    private String ltype;
+    private Integer ltype;
 
     private Date cdatetime;
     
@@ -53,12 +53,12 @@ public class Logindata implements Serializable{
         this.loginname = loginname == null ? null : loginname.trim();
     }
 
-    public String getLtype() {
+    public Integer getLtype() {
         return ltype;
     }
 
-    public void setLtype(String ltype) {
-        this.ltype = ltype == null ? null : ltype.trim();
+    public void setLtype(Integer ltype) {
+        this.ltype=ltype;
     }
 
     public Date getCdatetime() {

@@ -47,13 +47,9 @@ public class SecurityInterceptor implements HandlerInterceptor{
 			Object obj) throws Exception {
 		String path=request.getServletPath();
 		logger.info("进入安全拦截器，请求地址："+path);
-		SessionInfo vo=(SessionInfo)request.getSession().getAttribute("SESSIONINFO");
-		if(vo!=null){
-//			if(path.startsWith("/page")){
-//				logger.info("页面不拦截");
-//				return true;
-//			}
-			if(pro(vo.getResources(),path).equals("yes")){
+		SessionInfo sessionInfo=(SessionInfo)request.getSession().getAttribute("SESSIONINFO");
+		if(sessionInfo!=null){
+			if(pro(sessionInfo.getResources(),path).equals("yes")){
 				return true;
 			}
 			logger.info("NO_SECURITY");

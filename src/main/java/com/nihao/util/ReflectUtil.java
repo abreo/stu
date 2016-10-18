@@ -4,6 +4,13 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class ReflectUtil {
+
+	/**
+	 * 获取指定属性值
+	 * @param obj
+	 * @param name
+	 * @return
+	 */
 	public static Object getValue(Object obj,String name){
 		Field fields[]=obj.getClass().getDeclaredFields();
 		Field field=null;
@@ -18,9 +25,14 @@ public class ReflectUtil {
 				}
 			}
 		}
-		throw new RuntimeException("没有找到对应VALUE值:"+name+",在类:"+obj.getClass().getName());
+		throw new RuntimeException("没有找到对应VALUE值:"+name+",在类:"+obj.getClass().getName()+"中");
 	}
-	
+
+	/**
+	 * 克隆属性值
+	 * @param from
+	 * @param to
+	 */
 	public static void cloneValues(Object from,Object to){
 		Field fieldsFrom[]=from.getClass().getDeclaredFields();
 		Field fieldsTo[]=to.getClass().getDeclaredFields();
@@ -41,7 +53,12 @@ public class ReflectUtil {
 			}
 		}
 	}
-	
+
+	/**
+	 * 设置子节点
+	 * @param obj
+	 * @param list
+	 */
 	public static void setChildren(Object obj,List list){
 		Field fields[]=obj.getClass().getDeclaredFields();
 		Field field=null;
@@ -57,5 +74,6 @@ public class ReflectUtil {
 				}
 			}
 		}
+		throw new RuntimeException("在类"+obj.getClass().getName()+"中未找到children属性");
 	}
 }

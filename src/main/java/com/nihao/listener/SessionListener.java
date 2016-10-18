@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
+import com.nihao.model.enums.LogTypeEnum;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.nihao.dao.impl.CommonDao;
@@ -21,7 +22,7 @@ public class SessionListener implements HttpSessionAttributeListener{
 			Logindata logindata=new Logindata();
 			logindata.setLoginname(vo.getInfo().getLoginname());
 			logindata.setCdatetime(new Date());
-			logindata.setLtype("上线");
+			logindata.setLtype(LogTypeEnum.ON_LINE.getValue());
 			logindata.setIp(vo.getIp());
 			logindata.setUseragent(vo.getUserAgent());
 			if(commonDao==null)
@@ -38,7 +39,7 @@ public class SessionListener implements HttpSessionAttributeListener{
 			Logindata logindata=new Logindata();
 			logindata.setLoginname(vo.getInfo().getLoginname());
 			logindata.setCdatetime(new Date());
-			logindata.setLtype("下线");
+			logindata.setLtype(LogTypeEnum.OFF_LINE.getValue());
 			logindata.setIp(vo.getIp());
 			logindata.setUseragent(vo.getUserAgent());
 			if(commonDao==null)

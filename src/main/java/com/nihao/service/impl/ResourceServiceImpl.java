@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Lists;
 import com.nihao.util.AssembleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,9 +49,9 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	public List<ResourceVO> selectListByUserId(Integer userId) {
 		List<Resource> list=resourceMapper.selectListByUserId(userId);
 		Set<Resource> set=new HashSet<>(list);
-		list=new ArrayList<>(set);
+		list= Lists.newArrayList(set);
 		Iterator<Resource> it=list.iterator();
-		List<ResourceVO> voList=new ArrayList<>();
+		List<ResourceVO> voList=Lists.newArrayListWithExpectedSize(list.size());
 		while (it.hasNext()) {
 			Resource re = it.next();
 			if (re.getParentid() == null) {
@@ -58,7 +59,6 @@ public class ResourceServiceImpl implements ResourceServiceI {
 				it.remove();
 			}
 		}
-
 		for (ResourceVO vo : voList) {
 			AssembleUtil.assemble(list, vo, ResourceVO.class);
 		}

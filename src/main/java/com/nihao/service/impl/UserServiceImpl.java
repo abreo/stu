@@ -34,15 +34,15 @@ public class UserServiceImpl implements UserServiceI {
 		User user=userMapper.selectOneByLoginnameAndPwd(loginname,MD5Util.md5(pwd));
 		if(user==null)
 			return null;
-		SessionInfo vo=new SessionInfo();
+		SessionInfo sessionInfo=new SessionInfo();
 		List<RoleVO> roles=roleService.selectListByUserId(user.getId());
 		OrganizationVO organization=organizationService.selectFullById(user.getOrganizationid());
 		List<ResourceVO> resources=resourceService.selectListByUserId(user.getId());
-		vo.setOrganization(organization);
-		vo.setResources(resources);
-		vo.setRoles(roles);
-		vo.setInfo(user);
-		return vo;
+		sessionInfo.setOrganization(organization);
+		sessionInfo.setResources(resources);
+		sessionInfo.setRoles(roles);
+		sessionInfo.setInfo(user);
+		return sessionInfo;
 	}
 
 	@Override
