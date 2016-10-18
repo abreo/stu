@@ -1,6 +1,8 @@
-/target
-/log
-/.classpath
-/.DS_Store
-/.project
-/.settings
+target
+log
+.classpath
+.DS_Store
+.project
+.settings
+.idea
+stu.iml
