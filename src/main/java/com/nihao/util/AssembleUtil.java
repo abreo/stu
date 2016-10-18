@@ -7,6 +7,8 @@ import com.nihao.model.view.ResourceVO;
 
 /**
  * 装配工具类
+ * @author nihao by eclipse
+ *
  */
 public class AssembleUtil {
 	/**

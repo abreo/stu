@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.nihao.model.view.JSONResult;
-
+/**
+ * AjaxController
+ * @author nihao by eclipse
+ *
+ */
 @Controller
 @RequestMapping("/ajax")
 public class AjaxController {

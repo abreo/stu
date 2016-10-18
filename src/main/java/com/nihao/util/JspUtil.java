@@ -8,6 +8,11 @@ import com.nihao.model.enums.ResourceTypeEnum;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.model.view.SessionInfo;
 
+/**
+ * JSP工具类
+ * @author nihao by eclipse
+ *
+ */
 public class JspUtil{
 	/**
 	 * 获取菜单

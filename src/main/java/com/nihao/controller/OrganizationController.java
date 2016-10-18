@@ -21,6 +21,11 @@ import com.nihao.model.view.BootstrapTree;
 import com.nihao.model.view.OrganizationVO;
 import com.nihao.model.view.SessionInfo;
 
+/**
+ * 机构Controller
+ * @author nihao by eclipse
+ *
+ */
 @Controller
 public class OrganizationController {
 	

@@ -28,6 +28,11 @@ import com.nihao.model.view.UserInfoVO;
 import com.nihao.model.view.SessionInfo;
 import com.nihao.service.UserServiceI;
 
+/**
+ * 用户Controller
+ * @author nihao by eclipse
+ *
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {

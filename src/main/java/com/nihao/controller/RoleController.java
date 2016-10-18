@@ -31,6 +31,11 @@ import com.nihao.model.view.User2RoleVO;
 import com.nihao.model.view.SessionInfo;
 import com.nihao.service.RoleServiceI;
 
+/**
+ * 角色Controller
+ * @author nihao by eclipse
+ *
+ */
 @Controller
 @RequestMapping("/role")
 public class RoleController {

@@ -3,6 +3,11 @@ package com.nihao.util;
 import java.lang.reflect.Field;
 import java.util.List;
 
+/**
+ * ReflectUtil
+ * @author nihao by eclipse
+ *
+ */
 public class ReflectUtil {
 
 	/**

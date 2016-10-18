@@ -2,6 +2,11 @@ package com.nihao.util;
 
 import java.lang.reflect.Field;
 
+/**
+ * SeqUtil
+ * @author nihao by eclipse
+ *
+ */
 public class SeqUtil {
 	private static Integer getIndex(Object obj) {
 		Field fields[]=obj.getClass().getDeclaredFields();

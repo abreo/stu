@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.nihao.dao.LogindataMapper;
 import com.nihao.dao.impl.CommonDao;
 import com.nihao.model.Logindata;
+import com.nihao.model.enums.LogTypeEnum;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.service.ResourceServiceI;
 import com.nihao.service.TestServiceI;
@@ -39,7 +40,7 @@ public class Tt {
 		 Logindata logindata=new Logindata();
 			logindata.setLoginname("root");
 			logindata.setCdatetime(new Date());
-			logindata.setLtype("登录");
+			logindata.setLtype(LogTypeEnum.ON_LINE.getValue());
 			logindata.setIp("127.0.0.1");
 		 int i=commonDao.save("com.nihao.dao.LogindataMapper.insertOne", logindata);
 	 }
