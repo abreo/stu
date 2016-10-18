@@ -5,14 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.nihao.model.view.ResourceVO;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 
 public class JspUtil{
 	public static String getResources(HttpServletRequest request){
-		UserVO userVo=(UserVO)request.getSession().getAttribute("SESSIONINFO");
+		SessionInfo sessionInfo =(SessionInfo)request.getSession().getAttribute("SESSIONINFO");
 		StringBuffer sb=new StringBuffer("");
-		if(userVo!=null&&userVo.getResources()!=null&&userVo.getResources().size()>0){
-			List<ResourceVO> list=userVo.getResources();
+		if(sessionInfo !=null&& sessionInfo.getResources()!=null&& sessionInfo.getResources().size()>0){
+			List<ResourceVO> list= sessionInfo.getResources();
 			pro(sb,list,request.getContextPath());
 		}
 		

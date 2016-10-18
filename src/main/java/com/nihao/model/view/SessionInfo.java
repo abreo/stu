@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.nihao.model.User;
 
-public class UserVO {
+public class SessionInfo {
 	
 	private User info;
 	

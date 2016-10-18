@@ -9,7 +9,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.nihao.dao.impl.CommonDao;
 import com.nihao.model.Logindata;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 
 public class SessionListener implements HttpSessionAttributeListener{
 	private CommonDao commonDao;
@@ -17,7 +17,7 @@ public class SessionListener implements HttpSessionAttributeListener{
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent arg0) {
 		if(arg0.getName().equals("SESSIONINFO")){
-			UserVO vo=(UserVO)arg0.getValue();
+			SessionInfo vo=(SessionInfo)arg0.getValue();
 			Logindata logindata=new Logindata();
 			logindata.setLoginname(vo.getInfo().getLoginname());
 			logindata.setCdatetime(new Date());
@@ -34,7 +34,7 @@ public class SessionListener implements HttpSessionAttributeListener{
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent arg0) {
 		if(arg0.getName().equals("SESSIONINFO")){
-			UserVO vo=(UserVO)arg0.getValue();
+			SessionInfo vo=(SessionInfo)arg0.getValue();
 			Logindata logindata=new Logindata();
 			logindata.setLoginname(vo.getInfo().getLoginname());
 			logindata.setCdatetime(new Date());

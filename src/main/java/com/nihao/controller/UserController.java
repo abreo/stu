@@ -25,7 +25,7 @@ import com.nihao.model.view.ControllerVO;
 import com.nihao.model.view.JSONResult;
 import com.nihao.model.view.PageResultForBootstrap;
 import com.nihao.model.view.UserInfoVO;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 import com.nihao.service.UserServiceI;
 
 @Controller
@@ -42,7 +42,7 @@ public class UserController {
 			throws IOException, ServletException {
 		String loginname = request.getParameter("loginname");
 		String pwd = request.getParameter("pwd");
-		UserVO vo = userService.login(loginname, pwd);
+		SessionInfo vo = userService.login(loginname, pwd);
 		JSONResult jsonResult=new JSONResult();
 		if (vo == null) {
 			jsonResult.setCode(403);

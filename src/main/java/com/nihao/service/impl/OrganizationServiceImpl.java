@@ -16,11 +16,15 @@ public class OrganizationServiceImpl implements OrganizationServiceI{
 	
 	@Autowired
 	private OrganizationMapper organizationMapper;
-	
+
+	/**
+	 * 组织机构填充children
+	 * @param vo
+	 */
 	private void fillIn(OrganizationVO vo){
 		if(vo!=null&&vo.getId()!=null){
 			List<Organization> list=organizationMapper.selectByParentId(vo.getId());
-			List<OrganizationVO> children=new ArrayList<>();
+			List<OrganizationVO> children=new ArrayList<>(list.size());
 			for(Organization po:list){
 				OrganizationVO child=new OrganizationVO(po);
 				fillIn(child);
@@ -51,7 +55,7 @@ public class OrganizationServiceImpl implements OrganizationServiceI{
 //			}
 //		}
 //		for(OrganizationVO vo:voList){
-//			ZuZhuangUtil.zuZhuang(list, vo, OrganizationVO.class);
+//			AssembleUtil.zuZhuang(list, vo, OrganizationVO.class);
 //		}
 //		return voList;
 ////		List<Organization> list=organizationMapper.selectListByUserId(userId);

@@ -28,7 +28,7 @@ import com.nihao.model.view.JSONResult;
 import com.nihao.model.view.PageResultForBootstrap;
 import com.nihao.model.view.RoleVO;
 import com.nihao.model.view.User2RoleVO;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 import com.nihao.service.RoleServiceI;
 
 @Controller
@@ -43,7 +43,7 @@ public class RoleController {
 	@ResponseBody
 	public String getRolesByUserId(HttpServletRequest request){
 		List<RoleVO> list=roleService.selectListByUserId(Integer.parseInt(request.getParameter("userId")));
-		List<RoleVO> sessionList=((UserVO)request.getSession().getAttribute("SESSIONINFO")).getRoles();
+		List<RoleVO> sessionList=((SessionInfo)request.getSession().getAttribute("SESSIONINFO")).getRoles();
 		Set<RoleVO> set=new HashSet<>(list);
 		Set<RoleVO> ownSet=new HashSet<>(sessionList);
 		ownSet.removeAll(set);
@@ -70,7 +70,7 @@ public class RoleController {
 	@RequestMapping(value = "/security/list.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
 	@ResponseBody
 	public String list(@RequestBody ControllerVO vo,HttpSession session){
-		Integer userId=((UserVO)session.getAttribute("SESSIONINFO")).getInfo().getId();
+		Integer userId=((SessionInfo)session.getAttribute("SESSIONINFO")).getInfo().getId();
 		vo.getParam().put("userid", userId);
 		Long l=commonDao.countByParam("com.nihao.dao.RoleMapper.selectCount", vo.getParam());
 		PageResultForBootstrap bf=new PageResultForBootstrap();

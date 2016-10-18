@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.nihao.model.view.BootstrapTree;
 import com.nihao.model.view.OrganizationVO;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 
 @Controller
 public class OrganizationController {
@@ -47,7 +47,7 @@ public class OrganizationController {
 	@RequestMapping(value="/organization/owntree.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
 	@ResponseBody
 	public String ownTree(HttpServletRequest request){
-		UserVO vo=(UserVO) request.getSession().getAttribute("SESSIONINFO");
+		SessionInfo vo=(SessionInfo) request.getSession().getAttribute("SESSIONINFO");
 		List<BootstrapTree> list=new ArrayList<>(0);
 		Set<Integer> organizationIds=new HashSet<>(0);
 		if(vo!=null&&vo.getOrganization()!=null){

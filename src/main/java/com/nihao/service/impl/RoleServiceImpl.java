@@ -41,7 +41,7 @@ public class RoleServiceImpl implements RoleServiceI{
 	@Override
 	public List<RoleVO> selectListByUserId(Integer userId) {
 		List<Role> list=roleMapper.selectListByUserId(userId);
-		List<RoleVO> voList=new ArrayList<>();
+		List<RoleVO> voList=new ArrayList<>(list.size());
 		for(Role role:list){
 			voList.add(new RoleVO(role));
 		}

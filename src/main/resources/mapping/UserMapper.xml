@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nihao.dao.UserMapper">
+	<resultMap id="UserDTOResultMap" type="com.nihao.model.dto.UserDTO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="loginname" property="loginname" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="CHAR" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="phonenum" property="phonenum" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
+		<result column="cdatetime" property="cdatetime" jdbcType="TIMESTAMP" />
+		<result column="udatetime" property="udatetime" jdbcType="TIMESTAMP" />
+		<association property="organization" javaType="com.nihao.model.Organization">
+		    <id column="o_id" property="id" jdbcType="INTEGER" />
+		    <result column="o_organizationname" property="organizationname" jdbcType="VARCHAR" />
+		    <result column="o_iconcls" property="iconcls" jdbcType="VARCHAR" />
+		    <result column="o_description" property="description" jdbcType="VARCHAR" />
+		    <result column="o_seq" property="seq" jdbcType="INTEGER" />
+		    <result column="o_parentid" property="parentid" jdbcType="INTEGER" />
+		    <result column="o_cdatetime" property="cdatetime" jdbcType="TIMESTAMP" />
+		    <result column="o_udatetime" property="udatetime" jdbcType="TIMESTAMP" />
+		</association>
+	</resultMap>
+
+	<select id="selectOneByLoginnameAndPwd" resultType="com.nihao.model.User">
+		select * from user
+		where loginname=#{loginname,jdbcType=VARCHAR}
+		and pwd=#{pwd,jdbcType=VARCHAR} and flag=1
+	</select>
+
+	<select id="selectCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Long">
+		select count(*) from user
+		where organizationid in
+		<foreach collection="organization" item="item" open="(" close=")"
+			separator=",">
+			#{item,jdbcType=INTEGER}
+		</foreach>
+		<if test="username != null">
+			and username like concat('%',#{username},'%')
+		</if>
+		<if test="loginname != null">
+			and loginname like concat('%',#{loginname},'%')
+		</if>
+		and flag=1
+	</select>
+
+	<select id="selectUserList" resultMap="UserDTOResultMap"
+		parameterType="java.util.HashMap">
+		select
+		a.id,a.loginname,a.username,a.gender,
+		a.birthday,a.phonenum,a.email,a.photo,
+		a.cdatetime,a.udatetime,
+		b.id o_id,b.organizationname o_organizationname,
+		b.iconcls o_iconcls,b.description o_description,
+		b.seq o_seq,b.parentid o_parentid,b.cdatetime o_cdatetime,
+		b.udatetime o_udatetime
+		from user a left join organization b on a.organizationid=b.id
+		where a.flag=1 and a.organizationid in
+		<foreach collection="organization" item="item" open="(" close=")"
+			separator=",">
+			#{item,jdbcType=INTEGER}
+		</foreach>
+		<if test="username != null">
+			and a.username like concat('%',#{username},'%')
+		</if>
+		<if test="loginname != null">
+			and a.loginname like concat('%',#{loginname},'%')
+		</if>
+		<if test="sort!=null">
+			order by ${sort}
+			<if test="order!=null">
+				${order}
+			</if>
+		</if>
+	</select>
+
+	<select id="selectUserById" resultType="com.nihao.model.view.UserInfoVO"
+		parameterType="java.lang.Integer">
+		select
+		a.id,a.loginname,a.username,a.gender,a.birthday,a.phonenum,
+		a.email,a.photo,a.cdatetime,a.udatetime,a.organizationid,b.organizationname
+		from user a left join organization b on a.organizationid=b.id
+		where a.id=#{id}
+	</select>
+
+	<update id="update" parameterType="com.nihao.model.view.UserInfoVO">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="username!=null">
+				<choose>
+					<when test="username!=''">
+						username=#{username},
+					</when>
+					<otherwise>
+						username=null,
+					</otherwise>
+				</choose>
+			</if>
+			<if test="gender!=null">
+				<choose>
+					<when test="gender!=''">
+						gender=#{gender},
+					</when>
+					<otherwise>
+						gender=null,
+					</otherwise>
+				</choose>
+			</if>
+			<if test="birthday!=null">
+				<choose>
+					<when test="birthday!=''">
+						birthday=#{birthday},
+					</when>
+					<otherwise>
+						birthday=null,
+					</otherwise>
+				</choose>
+			</if>
+			<if test="phonenum!=null">
+				<choose>
+					<when test="phonenum!=''">
+						phonenum=#{phonenum},
+					</when>
+					<otherwise>
+						phonenum=null,
+					</otherwise>
+				</choose>
+			</if>
+			udatetime=now()
+		</trim>
+		where id=#{id}
+	</update>
+	
+	<update id="deleteById" parameterType="java.lang.Integer">
+	update user set flag=0,udatetime=now() where id=#{id}
+	</update>
+	
+    <update id="updateOrganizationById" parameterType="com.nihao.model.User">
+    update user set organizationid=#{organizationid} where id=#{id}
+    </update>
+    
+</mapper>

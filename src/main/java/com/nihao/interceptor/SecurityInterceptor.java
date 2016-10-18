@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nihao.model.view.ResourceVO;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 
 public class SecurityInterceptor implements HandlerInterceptor{
 	
@@ -47,7 +47,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 			Object obj) throws Exception {
 		String path=request.getServletPath();
 		logger.info("进入安全拦截器，请求地址："+path);
-		UserVO vo=(UserVO)request.getSession().getAttribute("SESSIONINFO");
+		SessionInfo vo=(SessionInfo)request.getSession().getAttribute("SESSIONINFO");
 		if(vo!=null){
 //			if(path.startsWith("/page")){
 //				logger.info("页面不拦截");

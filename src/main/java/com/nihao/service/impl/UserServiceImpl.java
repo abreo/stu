@@ -11,7 +11,7 @@ import com.nihao.model.view.OrganizationVO;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.model.view.RoleVO;
 import com.nihao.model.view.UserInfoVO;
-import com.nihao.model.view.UserVO;
+import com.nihao.model.view.SessionInfo;
 import com.nihao.service.OrganizationServiceI;
 import com.nihao.service.ResourceServiceI;
 import com.nihao.service.RoleServiceI;
@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserServiceI {
 	private ResourceServiceI resourceService;
 
 	@Override
-	public UserVO login(String loginname, String pwd) {
+	public SessionInfo login(String loginname, String pwd) {
 		User user=userMapper.selectOneByLoginnameAndPwd(loginname,MD5Util.md5(pwd));
 		if(user==null)
 			return null;
-		UserVO vo=new UserVO();
+		SessionInfo vo=new SessionInfo();
 		List<RoleVO> roles=roleService.selectListByUserId(user.getId());
 		OrganizationVO organization=organizationService.selectFullById(user.getOrganizationid());
 		List<ResourceVO> resources=resourceService.selectListByUserId(user.getId());

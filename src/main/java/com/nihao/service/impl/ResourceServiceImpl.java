@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.nihao.util.AssembleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import com.nihao.dao.ResourceMapper;
 import com.nihao.model.Resource;
 import com.nihao.model.view.ResourceVO;
 import com.nihao.service.ResourceServiceI;
-import com.nihao.util.ZuZhuangUtil;
 
 @Service
 public class ResourceServiceImpl implements ResourceServiceI {
@@ -35,7 +35,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 //		}
 //		
 //		for(ResourceVO vo:voList){
-//			ZuZhuangUtil.zuZhuang(list, vo, ResourceVO.class);
+//			AssembleUtil.zuZhuang(list, vo, ResourceVO.class);
 //		}
 		while(it.hasNext()){
 			voList.add(new ResourceVO(it.next()));
@@ -60,7 +60,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		}
 
 		for (ResourceVO vo : voList) {
-			ZuZhuangUtil.zuZhuang(list, vo, ResourceVO.class);
+			AssembleUtil.assemble(list, vo, ResourceVO.class);
 		}
 		return voList;
 	}
