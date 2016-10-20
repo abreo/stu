@@ -76,17 +76,19 @@
 						break;
 					}
 				}
+				$(valiTags[i]).parent().find(".error-mes").remove();
 				if (message != '') {
-					$(valiTags[i]).attr('title', message);
-					$(valiTags[i]).parent().addClass('has-error');
-					$(valiTags[i]).parent().removeClass('has-success');
-					$(valiTags[i]).tooltip('show');
+					var app="<div class='error-mes' style='width: auto;" +
+						"position: absolute;z-index: 500;left: 20px;" +
+						"background-color: #ef3f52;font-size: 12px;" +
+						"color: whitesmoke;'>&nbsp;"+message+"&nbsp;</div>";
+					$(valiTags[i]).parent().append(app);
+					$(valiTags[i]).css("border-color","red");
+					$(valiTags[i]).addClass("error-vali");
 					check = false;
 				} else {
-					$(valiTags[i]).attr('title', '');
-					$(valiTags[i]).parent().removeClass('has-error');
-					$(valiTags[i]).parent().addClass('has-success');
-					$(valiTags[i]).tooltip('destroy');
+					$(valiTags[i]).css("border-color","green");
+					$(valiTags[i]).removeClass("error-vali");
 				}
 			}
 		}
@@ -98,16 +100,22 @@
 })(jQuery);
 $(document).ready(function() {
 	$("form").find('[validation]').bind("input propertychange", function() {
-		if($(this).parent().hasClass('has-error')){
-			$(this).attr('title', '');
-			$(this).parent().removeClass('has-error');
-			$(this).tooltip('destroy');
-			//var idd=$(this).attr('aria-describedby');
-			//$(this).removeAttr('aria-describedby');
-			//$(this).removeAttr('data-original-title');
-			//$('#'+idd).remove();
-			//$(this).next().remove();
+		if($(this).hasClass("error-vali")){
+			$(this).parent().find(".error-mes").remove();
+			$(this).css("border-color","#DCDCDC");
+			$(this).removeClass("error-vali");
 		}
+		// if($(this).parent().hasClass('has-error')){
+		// 	console.info("has-error");
+		// 	//$(this).attr('title', '');
+		// 	//$(this).parent().removeClass('has-error');
+		// 	//$(this).tooltip('destroy');
+		// 	//var idd=$(this).attr('aria-describedby');
+		// 	//$(this).removeAttr('aria-describedby');
+		// 	//$(this).removeAttr('data-original-title');
+		// 	//$('#'+idd).remove();
+		// 	//$(this).next().remove();
+		// }
 	});
 });
 

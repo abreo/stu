@@ -214,12 +214,15 @@
 			if(!checkSelected()){
 				return;
 			}
+			var height=$(parent).height(),
+				width=$(parent).width();
+			var h=height*0.8,w=width*0.4;
 			parent.layer.open({
 			    type: 2,
 			    title: '编辑',
 			    shadeClose: true,
 			    shade: 0.5,
-			    area: ['600px', '350px'],
+			    area: [w+'px', h+'px'],
 			    content: getContextPath()+'/page/security_system_user_edit?id='+data_table.bootstrapTable('getSelections')[0].id, //iframe的url
 			    btn:['确认','取消'],
 			    yes:function(index, layero){
