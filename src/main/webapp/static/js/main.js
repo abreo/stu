@@ -105,17 +105,6 @@ $(document).ready(function() {
 			$(this).css("border-color","#DCDCDC");
 			$(this).removeClass("error-vali");
 		}
-		// if($(this).parent().hasClass('has-error')){
-		// 	console.info("has-error");
-		// 	//$(this).attr('title', '');
-		// 	//$(this).parent().removeClass('has-error');
-		// 	//$(this).tooltip('destroy');
-		// 	//var idd=$(this).attr('aria-describedby');
-		// 	//$(this).removeAttr('aria-describedby');
-		// 	//$(this).removeAttr('data-original-title');
-		// 	//$('#'+idd).remove();
-		// 	//$(this).next().remove();
-		// }
 	});
 });
 
