@@ -699,12 +699,36 @@
 
 
 	/**
+	 * @author 倪浩
+	 */
+	var pro=function(thisNode,nodeId){
+		if(thisNode.id == nodeId){
+			return thisNode;
+		}
+		else if(typeof(thisNode.nodes)!='undefined'&&thisNode.nodes.length>0){
+			for(var i=0;i<thisNode.nodes.length;i++){
+				var childNode=thisNode.nodes[i];
+				var result=pro(childNode,nodeId);
+				if(typeof(result) != 'undefined'){
+					return result;
+				}
+			}
+		}
+	};
+	/**
 		Returns a single node object that matches the given node id.
 		@param {Number} nodeId - A node's unique identifier
 		@return {Object} node - Matching node
 	*/
 	Tree.prototype.getNode = function (nodeId) {
-		return this.nodes[nodeId];
+		for(var i=0;i<this.nodes.length;i++){
+			var thisNode=this.nodes[i];
+			var result=pro(thisNode,nodeId);
+			if(typeof(result) != 'undefined'){
+				return result;
+			}
+		}
+		//return this.nodes[nodeId];
 	};
 
 	/**

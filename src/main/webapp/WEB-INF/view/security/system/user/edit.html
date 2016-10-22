@@ -70,10 +70,13 @@ text-align: right;
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="organizationname" class="col-xs-2 control-label">机构</label>
+	    <label for="organizationid" class="col-xs-2 control-label">机构</label>
 	    <div class="col-xs-10">
-	        <input id="organizationname" name="organizationname" type="text" class="form-control" 
-					 value="" disabled>
+			<input id="organizationid" name="organizationid" type="text" class="form-control hidden"
+				   value="">
+			<input id="organizationname" name="organizationname" type="text" class="form-control"
+				   value="" readonly>
+			<div id="tree" style="display: none;"></div>
 	    </div>
 	</div>
 	<div class="form-group">
@@ -88,13 +91,14 @@ text-align: right;
 	        <input name="udatetime" id="udatetime" type="text" value=""  class="form-control" disabled>
 	    </div>
 	</div>
-  </form>  
+  </form>
   
     <!-- js -->
     <script src="/stu/static/plugins/hplus/js/jquery.min.js"></script>
     <script src="/stu/static/plugins/hplus/js/bootstrap.min.js"></script>
     <script src="/stu/static/plugins/hplus/js/plugins/layer/laydate/laydate.js"></script>
     <script src="/stu/static/plugins/lightbox-dialog/dist/js/lobibox.min.js"></script>
+    <script src="/stu/static/plugins/hplus/js/plugins/treeview/bootstrap-treeview.js"></script>
     <script src="/stu/static/js/main.js"></script>
     <script src="/stu/static/js/security/system/user/edit.js"></script>
 </body>

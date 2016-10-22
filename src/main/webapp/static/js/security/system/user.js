@@ -142,12 +142,16 @@
     		if(!checkSelected()){
 				return;
 			}
+			var height=$(parent).height(),
+				width=$(parent).width();
+			if(width>350) width=350;
+			if(height>420) height=420;
     		parent.layer.open({
 			    type: 2,
 			    title: '分配角色',
 			    shadeClose: true,
 			    shade: 0.5,
-			    area: ['350px', '420px'],
+			    area: [width+'px', height+'px'],
 			    content: getContextPath()+'/page/security_system_user_authorize?id='+data_table.bootstrapTable('getSelections')[0].id,
 			    btn:['确认','取消'],
 			    yes:function(index, layero){

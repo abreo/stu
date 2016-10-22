@@ -91,21 +91,21 @@ public class UserController {
 	@ResponseBody
 	public String getUserInfoById(Integer id){
 		JSONResult jr=new JSONResult(200, "请求成功"); 
-		UserInfoVO user=(UserInfoVO) commonDao.selectByPrimaryKey("com.nihao.dao.UserMapper.selectUserById", id);
+		User user=(User) commonDao.selectByPrimaryKey("com.nihao.dao.UserMapper.selectUserById", id);
 		jr.setData(user);
 		return JSON.toJSONString(jr,SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
 	}
 	
 	@RequestMapping(value="/security/update.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
 	@ResponseBody
-	public String updateUser(@RequestBody UserInfoVO vo){
+	public String updateUser(@RequestBody User user){
 		JSONResult jr=new JSONResult();
-		if(vo.getId()==null){
+		if(user.getId()==null){
 			jr.setCode(406);
 			jr.setMessage("缺少请求参数:ID");
 		}
 		else{
-			Integer i=userService.update(vo);
+			Integer i=userService.update(user);
 			if(i==1){
 				jr.setCode(200);
 				jr.setMessage("修改成功");

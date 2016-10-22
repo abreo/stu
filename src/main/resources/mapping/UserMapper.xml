@@ -71,23 +71,22 @@
 			and a.loginname like concat('%',#{loginname},'%')
 		</if>
 		<if test="sort!=null">
-			order by ${sort}
+			order by a.${sort}
 			<if test="order!=null">
-				${order}
+				a.${order}
 			</if>
 		</if>
 	</select>
 
-	<select id="selectUserById" resultType="com.nihao.model.view.UserInfoVO"
+	<select id="selectUserById" resultType="com.nihao.model.User"
 		parameterType="java.lang.Integer">
-		select
-		a.id,a.loginname,a.username,a.gender,a.birthday,a.phonenum,
-		a.email,a.photo,a.cdatetime,a.udatetime,a.organizationid,b.organizationname
-		from user a left join organization b on a.organizationid=b.id
+		select a.id,a.loginname,a.username,a.gender,a.birthday,a.phonenum,
+		a.email,a.photo,a.cdatetime,a.udatetime,a.organizationid
+		from user a
 		where a.id=#{id}
 	</select>
 
-	<update id="update" parameterType="com.nihao.model.view.UserInfoVO">
+	<update id="update" parameterType="com.nihao.model.User">
 		update user
 		<trim prefix="set" suffixOverrides=",">
 			<if test="username!=null">
@@ -129,6 +128,9 @@
 						phonenum=null,
 					</otherwise>
 				</choose>
+			</if>
+			<if test="organizationid!=null">
+				organizationid=#{organizationid},
 			</if>
 			udatetime=now()
 		</trim>

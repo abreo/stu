@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserServiceI {
 	}
 
 	@Override
-	public Integer update(UserInfoVO vo) {
-		return userMapper.update(vo);
+	public Integer update(User user) {
+		return userMapper.update(user);
 	}
 
 	@Override

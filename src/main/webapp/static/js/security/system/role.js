@@ -57,11 +57,22 @@ $(function(){
 	    	field: 'state',
 	        radio: true
 	    },{
-	        field: 'rolename',
-	        title: '名称',
-	        align: 'center',
-            valign: 'middle'
-	    },{
+			field: 'iconcls',
+			title: '图标',
+			align: 'center',
+			valign: 'middle',
+			formatter: function(value){
+				if(typeof(value)=='undefined'){
+					value='fa-user';
+				}
+				return "<i class='fa "+value+"'></i>";
+			}
+		},{
+			field: 'rolename',
+			title: '名称',
+			align: 'center',
+			valign: 'middle'
+		},{
 	    	field: 'description',
 	        title: '描述',
 	        align: 'center',
@@ -105,5 +116,13 @@ $(function(){
 		    	alert('no');
 		    }
 	    });
+	});
+
+	$(window).resizeEnd({
+		delay : 200
+	}, function() {
+		data_table.bootstrapTable('resetView',{
+			height:$('body').height()-5
+		});
 	});
 });
