@@ -88,11 +88,22 @@
 				    	field: 'state',
 				        radio: true
 				    },{
-				        field: 'loginname',
-				        title: '账号',
-				        align: 'center',
-		                valign: 'middle'
-				    },{
+						field: 'photo',
+						title: '头像',
+						align: 'center',
+						valign: 'middle',
+						formatter: function (value) {
+							if(typeof(value)=='undefined'){
+								value='/stu/static/image/default.jpg';
+							}
+							return "<img src='"+value+"' width='30' height='30' style='border-radius:50px;'>";
+						}
+					},{
+						field: 'loginname',
+						title: '账号',
+						align: 'center',
+						valign: 'middle'
+					},{
 				    	field: 'username',
 				        title: '姓名',
 				        align: 'center',
@@ -186,12 +197,16 @@
     	});
 		
 		$('#search_btn').click(function(){
+			var height=$(document).height(),
+				width=$(document).width();
+			if(width>500) width=500;
+			if(height>250) height=250;
 			layer.open({
 			    type: 2,
 			    title: '查找',
 			    shadeClose: true,
 			    shade: 0.5,
-			    area: ['500px', '250px'],
+				area: [width+'px', height+'px'],
 			    content: getContextPath()+'/page/security_system_user_search?',
 			    btn:['确认','取消'],
 			    yes:function(index, layero){
@@ -216,13 +231,14 @@
 			}
 			var height=$(parent).height(),
 				width=$(parent).width();
-			var h=height*0.8,w=width*0.4;
+			if(width>500) width=500;
+			if(height>500) height=500;
 			parent.layer.open({
 			    type: 2,
 			    title: '编辑',
 			    shadeClose: true,
 			    shade: 0.5,
-			    area: [w+'px', h+'px'],
+			    area: [width+'px', height+'px'],
 			    content: getContextPath()+'/page/security_system_user_edit?id='+data_table.bootstrapTable('getSelections')[0].id, //iframe的url
 			    btn:['确认','取消'],
 			    yes:function(index, layero){
