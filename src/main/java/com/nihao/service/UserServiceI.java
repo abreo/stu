@@ -8,5 +8,4 @@ public interface UserServiceI {
 	SessionInfo login(String loginname, String pwd);
 	Integer update(User user);
 	Integer deleteById(Integer id);
-	Integer updateOrganizationById(User user);
 }

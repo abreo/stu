@@ -43,10 +43,10 @@ text-align: right;
 	<div class="form-group">
 	    <label for="gender" class="col-xs-2 control-label">性别</label>
 	    <div class="col-xs-10">
-	        <select class="form-control" id="gender" name="gender">
+	        <select class="form-control" id="gender" name="gender" validation="required">
 				    <option value="男">男</option>
 					<option value="女">女</option>
-				</select>
+			</select>
 	    </div>
 	</div>
 	<div class="form-group">
@@ -58,7 +58,7 @@ text-align: right;
 	<div class="form-group">
 	    <label for="birthday" class="col-xs-2 control-label">生日</label>
 	    <div class="col-xs-10">
-	        <input id="birthday" name="birthday" type="text" class="form-control layer-date" 
+	        <input id="birthday" name="birthday" type="text" class="layer-date form-control"
 				    onclick="laydate({istime: false, format: 'YYYY-MM-DD', festival: true})">
 	    </div>
 	</div>
@@ -66,16 +66,16 @@ text-align: right;
 	    <label for="email" class="col-xs-2 control-label">邮箱</label>
 	    <div class="col-xs-10">
 	        <input id="email" name="email" type="text" class="form-control" 
-					 value="" disabled>
+					 value="" validation="required,email">
 	    </div>
 	</div>
 	<div class="form-group">
 	    <label for="organizationid" class="col-xs-2 control-label">机构</label>
 	    <div class="col-xs-10">
 			<input id="organizationid" name="organizationid" type="text" class="form-control hidden"
-				   value="">
+				   value="" validation="required">
 			<input id="organizationname" name="organizationname" type="text" class="form-control"
-				   value="" readonly>
+				   value="" readonly validation="required">
 			<div id="tree" style="display: none;"></div>
 	    </div>
 	</div>

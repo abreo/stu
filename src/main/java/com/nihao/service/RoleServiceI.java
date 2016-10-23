@@ -2,6 +2,7 @@ package com.nihao.service;
 
 import java.util.List;
 
+import com.nihao.model.Role;
 import com.nihao.model.dto.User2RoleDTO;
 import com.nihao.model.view.RoleVO;
 
@@ -19,4 +20,6 @@ public interface RoleServiceI {
 	 * @param roleIds
 	 */
 	void updateUser2Role(Integer userId,Integer[] roleIds);
+
+	int update(Role role);
 }

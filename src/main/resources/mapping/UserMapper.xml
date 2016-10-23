@@ -73,7 +73,7 @@
 		<if test="sort!=null">
 			order by a.${sort}
 			<if test="order!=null">
-				a.${order}
+				${order}
 			</if>
 		</if>
 	</select>
@@ -129,6 +129,16 @@
 					</otherwise>
 				</choose>
 			</if>
+			<if test="email!=null">
+				<choose>
+					<when test="email!=''">
+						email=#{email},
+					</when>
+					<otherwise>
+						email=null,
+					</otherwise>
+				</choose>
+			</if>
 			<if test="organizationid!=null">
 				organizationid=#{organizationid},
 			</if>
@@ -140,9 +150,5 @@
 	<update id="deleteById" parameterType="java.lang.Integer">
 	update user set flag=0,udatetime=now() where id=#{id}
 	</update>
-	
-    <update id="updateOrganizationById" parameterType="com.nihao.model.User">
-    update user set organizationid=#{organizationid} where id=#{id}
-    </update>
     
 </mapper>

@@ -3,36 +3,20 @@ package com.nihao.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 152759428530502726L;
+public class User{
 
 	private Integer id;
-
     private String loginname;
-
     private String pwd;
-
     private String username;
-
     private String gender;
-
     private String birthday;
-
     private String phonenum;
-
     private String email;
-
     private String photo;
-    
     private Integer organizationid;
-
     private Date cdatetime;
-
     private Date udatetime;
-    
     private Boolean flag;
 
     public Integer getId() {

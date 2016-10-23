@@ -55,9 +55,4 @@ public class UserServiceImpl implements UserServiceI {
 		return userMapper.deleteById(id);
 	}
 
-	@Override
-	public Integer updateOrganizationById(User user) {
-		return userMapper.updateOrganizationById(user);
-	}
-
 }

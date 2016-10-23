@@ -15,6 +15,7 @@ import com.nihao.model.view.RoleVO;
 import com.nihao.service.ResourceServiceI;
 import com.nihao.service.RoleServiceI;
 import com.nihao.util.InsertSort;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleServiceImpl implements RoleServiceI{
@@ -50,6 +51,7 @@ public class RoleServiceImpl implements RoleServiceI{
 	}
 
 	@Override
+	@Transactional
 	public void updateUser2Role(Integer userId,Integer[] roleIds) {
 		roleMapper.deleteUser2RoleByUserId(userId);
 		if(roleIds.length==0)
@@ -62,6 +64,11 @@ public class RoleServiceImpl implements RoleServiceI{
 			list.add(user2RoleDTO);
 		}
 		roleMapper.batchInsertUser2Role(list);
+	}
+
+	@Override
+	public int update(Role role) {
+		return roleMapper.update(role);
 	}
 
 }

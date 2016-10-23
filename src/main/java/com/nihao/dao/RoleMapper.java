@@ -11,4 +11,5 @@ public interface RoleMapper {
     int deleteUser2RoleByUserId(Integer userId);
     int batchInsertUser2Role(List<User2RoleDTO> list);
     List<Role> selectListByUserIdPagination(Map map);
+    int update(Role role);
 }

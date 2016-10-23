@@ -250,6 +250,7 @@
 			        var dataForm=body.find('#dataForm');
 			        if($(dataForm).validate()){
 				        var dataJson=body.find(dataForm).serializeJson();
+						delete dataJson.organizationname;
 						$.ajax({
 						    type:'post',
 						    url:getContextPath()+'/user/security/update.ajax',
@@ -263,7 +264,6 @@
 						    			delay:1500,
 						    			soundPath:'/stu/static/sounds/'
 						    		});
-								    parent.layer.close(index);
 								    refreshTable();
 							    }
 							    else{
@@ -272,8 +272,10 @@
 									    msg:data.message
 								    });
 							    }
+								parent.layer.close(index);
 						    },
 						    error : function(errorThrown) {
+								parent.layer.close(index);
 							    $("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
 							    Lobibox.alert('error', {
 								    title:errorThrown.status+'错误',

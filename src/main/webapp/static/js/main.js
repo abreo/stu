@@ -72,6 +72,20 @@
 							message = message + '手机号码格式有误!';
 						}
 						break;
+					case 'email':
+						var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+						if ($(valiTags[i]).val() != ''
+							&& !reg.test($(valiTags[i]).val())) {
+							message = message + '邮箱格式格式有误!';
+						}
+						break;
+					case 'date':
+						var reg = /^[1-9]\d{3}[/|-]((0[1-9])|(1(0|1|2))|([1-9]))[/|-](([0-2][1-9])|([1-2][0-9])|(3(0|1))|([1-9]))$/;
+						if ($(valiTags[i]).val() != ''
+							&& !reg.test($(valiTags[i]).val())) {
+							message = message + '日期格式有误!';
+						}
+						break;
 					default:
 						break;
 					}
@@ -150,7 +164,7 @@ function GetQueryString(name) {
 	return null;
 }
 
-function initForm(param, tag) {
+function initForm(param, after) {
 	$.ajax({
 		type : 'post',
 		url : param.url,
@@ -169,6 +183,9 @@ function initForm(param, tag) {
 						$("#" + key).attr('title', data.data[key]);
 					}
 				}
+			}
+			if(typeof(after)!='undefined'){
+				after();
 			}
 		},
 		error : function(errorThrown) {

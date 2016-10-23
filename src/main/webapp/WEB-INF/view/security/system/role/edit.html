@@ -13,34 +13,42 @@
 <link href="/stu/static/plugins/hplus/css/font-awesome.min93e3.css" rel="stylesheet">
 <link href="/stu/static/plugins/hplus/css/animate.min.css" rel="stylesheet">
 <link href="/stu/static/plugins/hplus/css/style.min862f.css" rel="stylesheet">
-<link href="/stu/static/plugins/lightbox-dialog/dist/css/Lobibox.min.css"" rel="stylesheet">
-<style type="text/css">
-</style>
+<link href="/stu/static/plugins/lightbox-dialog/dist/css/Lobibox.min.css" rel="stylesheet">
+	<style type="text/css">
+		.control-label{
+			text-align: right;
+		}
+	</style>
 </head>
 <body style="padding: 10px;">
   <form method="get" class="form-horizontal" id="dataForm" role="form">
     <div style="display: none;">
-	    <input type="hidden" name="id" id="id" value="">
+		<input type="hidden" name="id" id="id" value="" validation="required">
+		<input type="hidden" name="iconcls" id="iconcls" value="">
 	</div>
 	<div class="form-group">
-	    <label for="rolename" class="col-sm-2 control-label">角色名</label>
-	    <div class="col-sm-10">
+	    <label for="rolename" class="col-xs-2 control-label">角色名</label>
+	    <div class="col-xs-10">
 	        <input id="rolename" name="rolename" value="" type="text" 
                     class="form-control"
 					data-placement="bottom" title="" validation="required">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="iconcls" class="col-sm-2 control-label">图标</label>
-	    <div class="col-sm-10">
-	        <input id="iconcls" name="iconcls" type="text"
-                    class="form-control" readonly="readonly">
+		<label for="iconcls" class="col-xs-2 control-label">图标</label>
+	    <div class="col-xs-10">
+			<div id="iconclsShowSpan" class="col-xs-6"></div>
+			<div class="col-xs-6">
+				<button id="select-icon-btn" type="button" class="btn btn-w-m btn-primary">选择图标</button>
+			</div>
+	        <!--<input id="iconcls-" name="iconcls-" type="text"-->
+                    <!--class="form-control" readonly="readonly">-->
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="seq" class="col-sm-2 control-label">排序</label>
-	    <div class="col-sm-10">
-	        <select id="seq" name="seq" class="form-control">
+		<label for="seq" class="col-xs-2 control-label">排序</label>
+	    <div class="col-xs-10">
+	        <select id="seq" name="seq" class="form-control" validation="required">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -55,20 +63,20 @@
 		</div>
 	</div>
 	<div class="form-group">
-	    <label for="description" class="col-sm-2 control-label">描述</label>
-	    <div class="col-sm-10">
+	    <label for="description" class="col-xs-2 control-label">描述</label>
+	    <div class="col-xs-10">
 	        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="cdatetime" class="col-sm-2 control-label">创建日期</label>
-	    <div class="col-sm-10">
+	    <label for="cdatetime" class="col-xs-2 control-label">创建日期</label>
+	    <div class="col-xs-10">
 	        <input name="cdatetime" id="cdatetime" type="text" value=""  class="form-control" disabled>
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="udatetime" class="col-sm-2 control-label">更新日期</label>
-	    <div class="col-sm-10">
+	    <label for="udatetime" class="col-xs-2 control-label">更新日期</label>
+	    <div class="col-xs-10">
 	        <input name="udatetime" id="udatetime" type="text" value=""  class="form-control" disabled>
 	    </div>
 	</div>
@@ -82,7 +90,8 @@
     <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/stu/static/plugins/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="/stu/static/plugins/hplus/js/plugins/layer/laydate/laydate.js"></script>
-    <script src="/stu/static/plugins/lightbox-dialog/dist/js/lobibox.min.js""></script>
+    <script src="/stu/static/plugins/layer-v2.4//layer/layer.js"></script>
+    <script src="/stu/static/plugins/lightbox-dialog/dist/js/lobibox.min.js"></script>
     <script src="/stu/static/js/main.js"></script>
     <script src="/stu/static/js/security/system/role/edit.js"></script>
 </body>

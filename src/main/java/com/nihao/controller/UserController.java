@@ -105,7 +105,7 @@ public class UserController {
 			jr.setMessage("缺少请求参数:ID");
 		}
 		else{
-			Integer i=userService.update(user);
+			int i=userService.update(user);
 			if(i==1){
 				jr.setCode(200);
 				jr.setMessage("修改成功");
@@ -133,20 +133,5 @@ public class UserController {
 		}
 		return JSON.toJSONString(jr);
 	}
-	
-	@RequestMapping(value="/security/organization.ajax",method= RequestMethod.POST)
-	@ResponseBody
-	public String updateOrganization(@RequestBody User user){
-		JSONResult jr=new JSONResult();
-		int i=userService.updateOrganizationById(user);
-		if(i==1){
-			jr.setCode(200);
-			jr.setMessage("修改机构成功");
-		}
-		else{
-			jr.setCode(500);
-			jr.setMessage("修改机构失败");
-		}
-		return JSON.toJSONString(jr);
-	}
+
 }

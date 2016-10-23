@@ -27,7 +27,7 @@
 			and a.rolename like concat('%',#{rolename},'%')
 		</if>
 		<if test="sort!=null">
-			order by ${sort}
+			order by a.${sort}
 			<if test="order!=null">
 				${order}
 			</if>
@@ -61,5 +61,25 @@
   <select id="selectRoleById" parameterType="java.lang.Integer" resultType="com.nihao.model.Role">
   select * from role where id=#{id}
   </select>
+
+    <update id="update" parameterType="com.nihao.model.Role">
+        update role
+        <trim prefix="set" suffixOverrides=",">
+            <if test="rolename!=null">
+                rolename=#{rolename},
+            </if>
+            <if test="iconcls!=null">
+                iconcls=#{iconcls},
+            </if>
+            <if test="description!=null">
+                description=#{description},
+            </if>
+            <if test="seq!=null">
+                seq=#{seq},
+            </if>
+            udatetime=now()
+        </trim>
+        where id=#{id}
+    </update>
   
 </mapper>

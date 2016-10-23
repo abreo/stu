@@ -5,7 +5,7 @@ $(function(){
 		classes:'table table-bordered',
 		url:getContextPath()+'/role/security/list.ajax',
 		pagination:'true',
-		sortName:'id',
+		sortName:'seq',
 		sortOrder:'asc',
 		sidePagination:'server',
 		idField:'id',
@@ -94,28 +94,66 @@ $(function(){
 		if(!checkSelected()){
 			return;
 		}
+		var height=$(parent).height(),
+			width=$(parent).width();
+		if(width>500) width=500;
+		if(height>500) height=500;
 		parent.layer.open({
-		    type: 2,
-		    title: '编辑',
-		    shadeClose: true,
-		    shade: 0.5,
-		    area: ['500px', '300px'],
-		    content: getContextPath()+'/page/security_system_role_edit?id='+data_table.bootstrapTable('getSelections')[0].id, //iframe的url
-		    end:refreshTable,
-		    btn:['确认','取消'],
-		    yes:function(index, layero){
-		    	alert('yes');
-		    	//layero.selector
-		    	//parent.layer.close(index);
-		        var body = parent.layer.getChildFrame('body', index);
-		        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-		        console.log(body.html()) //得到iframe页的body内容
-		        body.find('input').val('Hi，我是从父页来的');
-		    },
-		    btn2:function(index, layero){
-		    	alert('no');
-		    }
-	    });
+			type: 2,
+			title: '编辑',
+			shadeClose: true,
+			shade: 0.5,
+			area: [width+'px', height+'px'],
+			content: getContextPath()+'/page/security_system_role_edit?id='+data_table.bootstrapTable('getSelections')[0].id, //iframe的url
+			btn:['确认','取消'],
+			yes:function(index, layero){
+				var body = parent.layer.getChildFrame('body', index);
+				var dataForm=body.find('#dataForm');
+				if($(dataForm).validate()){
+					var dataJson=body.find(dataForm).serializeJson();
+					$.ajax({
+						type:'post',
+						url:getContextPath()+'/role/security/update.ajax',
+						data : JSON.stringify(dataJson),
+						contentType:'application/json',
+						dataType : 'json',
+						success : function(data) {
+							if(data.code == 200){
+								Lobibox.notify('success', {
+									msg:data.message,
+									delay:1500,
+									soundPath:'/stu/static/sounds/'
+								});
+								refreshTable();
+							}
+							else{
+								$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+								Lobibox.alert('error', {
+									msg:data.message
+								});
+							}
+							parent.layer.close(index);
+						},
+						error : function(errorThrown) {
+							parent.layer.close(index);
+							$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+							Lobibox.alert('error', {
+								title:errorThrown.status+'错误',
+								msg:'错误信息:'+errorThrown.statusText
+							});
+						}
+					});
+				}
+				//layero.selector
+				//parent.layer.close(index);
+				//var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+				//console.log(body.html()) //得到iframe页的body内容
+				//body.find('input').val('Hi，我是从父页来的');
+			},
+			btn2:function(index, layero){
+				parent.layer.close(index);
+			}
+		});
 	});
 
 	$(window).resizeEnd({

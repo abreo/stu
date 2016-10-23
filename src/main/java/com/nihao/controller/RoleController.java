@@ -101,4 +101,26 @@ public class RoleController {
 		jr.setData(role);
 		return JSON.toJSONString(jr,SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
 	}
+
+	@RequestMapping(value="/security/update.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
+	@ResponseBody
+	public String updateRole(@RequestBody Role role){
+		JSONResult jr=new JSONResult();
+		if(role.getId()==null){
+			jr.setMessage("缺少请求参数:ID");
+			jr.setCode(406);
+		}
+		else{
+			int i=roleService.update(role);
+			if(i==1){
+				jr.setCode(200);
+				jr.setMessage("修改成功");
+			}
+			else{
+				jr.setMessage("修改失败，影响条目数:"+i);
+				jr.setCode(500);
+			}
+		}
+		return JSON.toJSONString(jr,SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
+	}
 }

@@ -5,56 +5,41 @@
 		pro(parentNode);
 	};
     $(function(){
-		$.ajax({
-			type:'post',
-			url:getContextPath()+'/organization/owntree.ajax',
-			dataType : 'json',
-			success:function(data) {
-				$('#tree').treeview({
-					data: data.organizations,
-					levels: 0,
-					nodeIcon: 'fa fa-institution',
-					onNodeSelected: function (event, data) {
-						$('#organizationid').val(data.id);
-						$('#organizationname').val(data.text);
-						$(this).hide();
-					},
-					onNodeUnselected: function (event, data) {
-						$('#organizationid').val('');
-						$('#organizationname').val('');
-						$(this).hide();
-					}
-				});
-			}
-		});
-
 		var id=GetQueryString("id");
 		var url=getContextPath()+"/user/security/info.ajax";
 		var param={};
 		param.url=url;
 		param.data={"id":id};
-		initForm(param);
-
-		var iff=true;
-		var inte=window.setInterval(function () {
-			if(!iff){
-				window.clearInterval(inte);
-			}
-			else{
-				if($('input[name="id"]').val()!=''){
-					if($('#tree').html()!=''){
-						iff=false;
-						var thisNode=$('#tree').treeview('getNode',parseInt($('#organizationid').val()));
-						if(typeof(thisNode.nodeId)=='undefined'){
-							return;
+		initForm(param,function () {
+			$.ajax({
+				type:'post',
+				url:getContextPath()+'/organization/owntree.ajax',
+				dataType : 'json',
+				success:function(data) {
+					$('#tree').treeview({
+						data: data.organizations,
+						levels: 0,
+						nodeIcon: 'fa fa-institution',
+						onNodeSelected: function (event, data) {
+							$('#organizationid').val(data.id);
+							$('#organizationname').val(data.text);
+							$(this).hide();
+						},
+						onNodeUnselected: function (event, data) {
+							$('#organizationid').val('');
+							$('#organizationname').val('');
+							$(this).hide();
 						}
+					});
+					var thisNode=$('#tree').treeview('getNode',parseInt($('#organizationid').val()));
+					if(typeof(thisNode.nodeId)!='undefined'){
 						$('#organizationname').val(thisNode.text);
 						$('#tree').treeview('selectNode', [ thisNode.nodeId, { silent: true } ]);
 						pro(thisNode);
 					}
 				}
-			}
-		},500);
+			});
+		});
 
 		$('#organizationname').click(function (event) {
 			//$('#tree').treeview('collapseAll', { silent: true });

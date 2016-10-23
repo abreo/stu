@@ -4,40 +4,35 @@
 		var param={};
 		param.url=url;
 		param.data={"id":id};
-		initForm(param);
-		$('#btn-submit').click(function(){
-			if($('#dataForm').validate()){
-				var dataJson = $("#dataForm").serializeJson();
-				//alert(JSON.stringify(dataJson));
-				$.ajax({
-					type:'post',
-					url:getContextPath()+'/user/security/update.ajax',
-					data : JSON.stringify(dataJson),
-					contentType:'application/json',
-					dataType : 'json',
-					success : function(data) {
-						if(data.code == 200){
-							top.TopLobibox('notify','success',{
-								msg:data.message,
-								delay:1000
-							});
-							mclose();
-						}
-						else{
-							$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
-							Lobibox.alert('error', {
-								msg:data.message
-							});
-						}
-					},
-					error : function(errorThrown) {
-						$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
-						Lobibox.alert('error', {
-							title:errorThrown.status+'错误',
-			    			msg:'错误信息:'+errorThrown.statusText
-						});
-					}
-				});
+		initForm(param,function () {
+			var iconclsVal=$('#iconcls').val();
+			if(iconclsVal!=''){
+				$('#iconclsShowSpan').html("<i class='fa "+iconclsVal+" fa-2x pull-left fa-border'></i>");
 			}
+			else{
+				$('#iconclsShowSpan').html("未设置");
+			}
+		});
+
+		$('#select-icon-btn').click(function () {
+			var height=$(document).height(),
+				width=$(document).width();
+			layer.open({
+				type: 2,
+				title: '选择图标',
+				shadeClose: true,
+				shade: 0.5,
+				area: [width+'px', height+'px'],
+				content: getContextPath()+'/page/normal_icon?',
+				end:function () {
+					var iconclsVal=$('#iconcls').val();
+					if(iconclsVal!=''){
+						$('#iconclsShowSpan').html("<i class='fa "+iconclsVal+" fa-2x pull-left fa-border'></i>");
+					}
+					else{
+						$('#iconclsShowSpan').html("未设置");
+					}
+				}
+			});
 		});
 	});

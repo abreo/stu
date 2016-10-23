@@ -74,39 +74,48 @@
 		<property name="basePackage" value="com.nihao.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
+
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="append*" propagation="REQUIRED" />
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="modify*" propagation="REQUIRED" />
-			<tx:method name="edit*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="remove*" propagation="REQUIRED" />
-			<tx:method name="repair" propagation="REQUIRED" />
-			<tx:method name="delAndRepair" propagation="REQUIRED" />
 
-			<tx:method name="get*" propagation="SUPPORTS" />
-			<tx:method name="find*" propagation="SUPPORTS" />
-			<tx:method name="load*" propagation="SUPPORTS" />
-			<tx:method name="search*" propagation="SUPPORTS" />
-			<tx:method name="datagrid*" propagation="SUPPORTS" />
+	<!--使用注解方式的事务-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
-			<tx:method name="*" propagation="SUPPORTS" />
-		</tx:attributes>
-	</tx:advice>
-	<aop:config>
-		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.nihao.service..*Impl.*(..))" />
-		<aop:advisor pointcut-ref="transactionPointcut"
-			advice-ref="transactionAdvice" />
-	</aop:config>
+	<!--启用aop注解支持-->
+	<aop:aspectj-autoproxy/>
+
+
+	<!--<tx:advice id="transactionAdvice" transaction-manager="transactionManager">-->
+		<!--<tx:attributes>-->
+			<!--<tx:method name="add*" propagation="REQUIRED" />-->
+			<!--<tx:method name="append*" propagation="REQUIRED" />-->
+			<!--<tx:method name="insert*" propagation="REQUIRED" />-->
+			<!--<tx:method name="save*" propagation="REQUIRED" />-->
+			<!--<tx:method name="update*" propagation="REQUIRED" />-->
+			<!--<tx:method name="modify*" propagation="REQUIRED" />-->
+			<!--<tx:method name="edit*" propagation="REQUIRED" />-->
+			<!--<tx:method name="delete*" propagation="REQUIRED" />-->
+			<!--<tx:method name="remove*" propagation="REQUIRED" />-->
+			<!--<tx:method name="repair" propagation="REQUIRED" />-->
+			<!--<tx:method name="delAndRepair" propagation="REQUIRED" />-->
+
+			<!--<tx:method name="get*" propagation="SUPPORTS" />-->
+			<!--<tx:method name="find*" propagation="SUPPORTS" />-->
+			<!--<tx:method name="load*" propagation="SUPPORTS" />-->
+			<!--<tx:method name="search*" propagation="SUPPORTS" />-->
+			<!--<tx:method name="datagrid*" propagation="SUPPORTS" />-->
+
+			<!--<tx:method name="*" propagation="SUPPORTS" />-->
+		<!--</tx:attributes>-->
+	<!--</tx:advice>-->
+	<!--<aop:config>-->
+		<!--<aop:pointcut id="transactionPointcut"-->
+			<!--expression="execution(* com.nihao.service..*Impl.*(..))" />-->
+		<!--<aop:advisor pointcut-ref="transactionPointcut"-->
+			<!--advice-ref="transactionAdvice" />-->
+	<!--</aop:config>-->
 
 </beans>            

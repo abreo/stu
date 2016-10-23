@@ -1,5 +1,7 @@
 package com.nihao.model.view;
 
+import com.google.common.collect.Maps;
+
 import java.util.Map;
 
 public class ControllerVO {
@@ -13,7 +15,8 @@ public class ControllerVO {
 		return param;
 	}
 	public void setParam(Map<String, Object> param) {
-		this.param = param;
+		if(this.param==null) this.param= Maps.newHashMapWithExpectedSize(7);
+		this.param.putAll(param);
 	}
 	public Integer getPageSize() {
 		return pageSize;
@@ -32,11 +35,15 @@ public class ControllerVO {
 	}
 	public void setSortName(String sortName) {
 		this.sortName = sortName;
+		if(this.param==null) this.param= Maps.newHashMapWithExpectedSize(7);
+		param.put("sort",sortName);
 	}
 	public String getSortOrder() {
 		return sortOrder;
 	}
 	public void setSortOrder(String sortOrder) {
 		this.sortOrder = sortOrder;
+		if(this.param==null) this.param= Maps.newHashMapWithExpectedSize(7);
+		param.put("order",sortOrder);
 	}
 }
