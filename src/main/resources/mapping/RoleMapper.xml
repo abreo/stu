@@ -66,13 +66,34 @@
         update role
         <trim prefix="set" suffixOverrides=",">
             <if test="rolename!=null">
-                rolename=#{rolename},
+                <choose>
+                    <when test="rolename!=''">
+                        rolename=#{rolename},
+                    </when>
+                    <otherwise>
+                        rolename=null,
+                    </otherwise>
+                </choose>
             </if>
             <if test="iconcls!=null">
-                iconcls=#{iconcls},
+                <choose>
+                    <when test="iconcls!=''">
+                        iconcls=#{iconcls},
+                    </when>
+                    <otherwise>
+                        iconcls=null,
+                    </otherwise>
+                </choose>
             </if>
             <if test="description!=null">
-                description=#{description},
+                <choose>
+                    <when test="description!=''">
+                        description=#{description},
+                    </when>
+                    <otherwise>
+                        description=null,
+                    </otherwise>
+                </choose>
             </if>
             <if test="seq!=null">
                 seq=#{seq},
@@ -81,5 +102,25 @@
         </trim>
         where id=#{id}
     </update>
-  
+
+    <delete id="deleteRole2ResourceByRoleId" parameterType="java.lang.Integer">
+        delete from role2resource where roleid=#{id}
+    </delete>
+
+    <delete id="deleteUser2RoleByRoleId" parameterType="java.lang.Integer">
+        delete from user2role where roleid=#{id}
+    </delete>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from role where id=#{id}
+    </delete>
+
+    <select id="selectByRolename" parameterType="java.lang.String" resultType="com.nihao.model.Role">
+        select * from role where rolename=#{rolename} limit 1
+    </select>
+
+    <insert id="insert" parameterType="com.nihao.model.Role">
+        insert into role(rolename,iconcls,description,seq,cdatetime,udatetime)
+        values(#{rolename},#{iconcls},#{description},#{seq},now(),now())
+    </insert>
 </mapper>

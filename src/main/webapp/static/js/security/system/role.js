@@ -156,6 +156,114 @@ $(function(){
 		});
 	});
 
+	$('#del_btn').click(function () {
+		if(!checkSelected()){
+			return;
+		}
+		$("<div class='hidden need-remove-sound'></div>").sound("sound4.ogg");
+		Lobibox.confirm({
+			title:"确认",
+			msg:"确定要删除？",
+			callback:function($this, type, ev){
+				if(type==='yes'){
+					$.ajax({
+						type:'post',
+						url:getContextPath()+'/role/security/delete.ajax',
+						dataType:'json',
+						data:{
+							id:data_table.bootstrapTable('getSelections')[0].id
+						},
+						success:function(data){
+							if(data.code==200){
+								top.TopLobibox('notify','success', {
+									msg:data.message,
+									delay:1500
+								});
+								data_table.bootstrapTable('refresh');
+							}
+							else{
+								$("<div class='hidden need-remove-sound'></div>").sound("sound2.ogg");
+								Lobibox.alert('error', {
+									msg:data.message
+								});
+							}
+						},
+						error : function(errorThrown) {
+							$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+							Lobibox.alert('error', {
+								title:errorThrown.status+'错误',
+								msg:'错误信息:'+errorThrown.statusText
+							});
+						}
+					});
+				}
+			}
+		});
+	});
+
+	$('#save_btn').click(function () {
+		var height=$(parent).height(),
+			width=$(parent).width();
+		if(width>500) width=500;
+		if(height>500) height=500;
+		parent.layer.open({
+			type: 2,
+			title: '新增',
+			shadeClose: true,
+			shade: 0.5,
+			area: [width+'px', height+'px'],
+			content: getContextPath()+'/page/security_system_role_save', //iframe的url
+			btn:['确认','取消'],
+			yes:function(index, layero){
+				var body = parent.layer.getChildFrame('body', index);
+				var dataForm=body.find('#dataForm');
+				if($(dataForm).validate()){
+					var dataJson=body.find(dataForm).serializeJson();
+					$.ajax({
+						type:'post',
+						url:getContextPath()+'/role/security/save.ajax',
+						data : JSON.stringify(dataJson),
+						contentType:'application/json',
+						dataType : 'json',
+						success : function(data) {
+							if(data.code == 200){
+								Lobibox.notify('success', {
+									msg:data.message,
+									delay:1500,
+									soundPath:'/stu/static/sounds/'
+								});
+								refreshTable();
+								parent.layer.close(index);
+							}
+							else{
+								$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+								Lobibox.alert('error', {
+									msg:data.message
+								});
+							}
+						},
+						error : function(errorThrown) {
+							parent.layer.close(index);
+							$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+							Lobibox.alert('error', {
+								title:errorThrown.status+'错误',
+								msg:'错误信息:'+errorThrown.statusText
+							});
+						}
+					});
+				}
+				//layero.selector
+				//parent.layer.close(index);
+				//var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+				//console.log(body.html()) //得到iframe页的body内容
+				//body.find('input').val('Hi，我是从父页来的');
+			},
+			btn2:function(index, layero){
+				parent.layer.close(index);
+			}
+		});
+	});
+
 	$(window).resizeEnd({
 		delay : 200
 	}, function() {

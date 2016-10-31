@@ -22,4 +22,10 @@ public interface RoleServiceI {
 	void updateUser2Role(Integer userId,Integer[] roleIds);
 
 	int update(Role role);
+
+	int deleteById(Integer id);
+
+	Role selectByRolename(String rolename);
+
+	int saveRole(Role role) throws Exception;
 }

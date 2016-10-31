@@ -2,6 +2,7 @@ package com.nihao.service.impl;
 
 import java.util.List;
 
+import com.nihao.dao.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ import com.nihao.util.MD5Util;
 public class UserServiceImpl implements UserServiceI {
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private RoleMapper roleMapper;
 	@Autowired
 	private RoleServiceI roleService;
 	@Autowired
@@ -52,6 +55,7 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public Integer deleteById(Integer id) {
+		roleMapper.deleteUser2RoleByUserId(id);
 		return userMapper.deleteById(id);
 	}
 

@@ -310,7 +310,7 @@
 							},
 							success:function(data){
 								if(data.code==200){
-									top.TopLobibox('success', {
+									top.TopLobibox('notify','success', {
 						    			msg:data.message,
 						    			delay:1500
 						    		});
@@ -322,6 +322,13 @@
 										msg:data.message
 									});
 								}
+							},
+							error : function(errorThrown) {
+								$("<div class='hidden need-remove-sound'></div>").sound("sound5.ogg");
+								Lobibox.alert('error', {
+									title:errorThrown.status+'错误',
+									msg:'错误信息:'+errorThrown.statusText
+								});
 							}
 						});
 					}

@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.common.base.Strings;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -122,5 +123,30 @@ public class RoleController {
 			}
 		}
 		return JSON.toJSONString(jr,SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
+	}
+
+	@RequestMapping(value="/security/delete.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
+	@ResponseBody
+	public String delete(Integer id){
+		JSONResult jr=new JSONResult();
+		roleService.deleteById(id);
+		jr.setCode(200);
+		jr.setMessage("删除成功");
+		return JSON.toJSONString(jr);
+	}
+
+	@RequestMapping(value="/security/save.ajax",produces="text/html;charset=UTF-8",method= RequestMethod.POST)
+	@ResponseBody
+	public String save(@RequestBody Role role){
+		JSONResult jr=new JSONResult();
+		try {
+			roleService.saveRole(role);
+			jr.setCode(200);
+			jr.setMessage("新增成功");
+		} catch (Exception e) {
+			jr.setCode(500);
+			jr.setMessage(e.getMessage());
+		}
+		return JSON.toJSONString(jr);
 	}
 }

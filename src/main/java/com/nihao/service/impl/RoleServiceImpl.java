@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +70,37 @@ public class RoleServiceImpl implements RoleServiceI{
 	@Override
 	public int update(Role role) {
 		return roleMapper.update(role);
+	}
+
+	@Override
+	@Transactional
+	public int deleteById(Integer id) {
+		roleMapper.deleteRole2ResourceByRoleId(id);
+		roleMapper.deleteUser2RoleByRoleId(id);
+		return roleMapper.deleteById(id);
+	}
+
+	@Override
+	public Role selectByRolename(String rolename) {
+		return roleMapper.selectByRolename(rolename);
+	}
+
+	@Override
+	@Transactional
+	public int saveRole(Role role) throws Exception {
+		if(Strings.isNullOrEmpty(role.getRolename()))
+			throw new Exception("角色名称不能为空");
+		Role check=roleMapper.selectByRolename(role.getRolename());
+		if(check!=null)
+			throw new Exception("角色名称已存在");
+		if("".equals(role.getIconcls()))
+			role.setIconcls(null);
+		if("".equals(role.getDescription()))
+			role.setDescription(null);
+		int i=roleMapper.insert(role);
+		if(i!=1)
+			throw new Exception("新增失败,影响条目数:"+i);
+		return i;
 	}
 
 }
