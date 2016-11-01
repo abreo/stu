@@ -23,7 +23,7 @@ body,ul,li{
     padding: 0;
 }
 body{
-    background: #333;
+    /*background: #333;*/
 }
 div.audio{
     position: relative;
@@ -108,15 +108,27 @@ div.disk{
 </style>
 </head>
 <body id="body">
-tyuijokplvygbhn
-  <input type="button" id="ww" value="dada"/>
-  <input type="button" id="a" value="kkkkk">
-  <div class="audio">
-    <div class="echolizer"></div>
-    <div class="colorizer"></div>
-    <div class="disk"></div>
-    <img src="/stu/static/black/img/cover.jpg">
-</div>
+<!--tyuijokplvygbhn-->
+  <!--<input type="button" id="ww" value="dada" />-->
+  <!--<input type="button" id="a" value="kkkkk">-->
+<br>
+id:<input type="text" id="insert-id">
+name:<input type="text" id="insert-name">
+<input type="button" id="insert" value="新增"><br>
+id:<input type="text" id="delete-id">
+<input type="button" id="delete" value="删除"><br>
+id:<input type="text" id="update-id">
+name:<input type="text" id="update-name">
+<input type="button" id="update" value="更新"><br>
+id:<input type="text" id="select-id">
+<input type="button" id="select" value="查找"><br>
+
+  <!--<div class="audio">-->
+    <!--<div class="echolizer"></div>-->
+    <!--<div class="colorizer"></div>-->
+    <!--<div class="disk"></div>-->
+    <!--<img src="/stu/static/black/img/cover.jpg">-->
+<!--</div>-->
     <!-- js -->
     <script src="/stu/static/plugins/hplus/js/jquery.min.js"></script>
     <script src="/stu/static/plugins/hplus/js/bootstrap.min.js"></script>
@@ -131,17 +143,72 @@ tyuijokplvygbhn
     <script src="/stu/static/black/js/colorizer.js"></script>
     <script type="text/javascript">
     $(function(){
-    	$('#ww').click(function(){
-    		//$('#newMessageDIV').html('<embed src="/stu/static/sounds/7499.mp3"/>');
-    		$('.audio').remove();
-    	});
-    	$('#a').click(function(){
-    		$.colorizer("div.colorizer", {
-    		    file: "/stu/static/black/Shahre_Man.mp3",
-    		    shadow: ".colorizer",
-    		    echolizer: ".echolizer"
-    		});
-    	}); 
+//    	$('#ww').click(function(){
+//    		//$('#newMessageDIV').html('<embed src="/stu/static/sounds/7499.mp3"/>');
+//    		$('.audio').remove();
+//    	});
+//    	$('#a').click(function(){
+//    		$.colorizer("div.colorizer", {
+//    		    file: "/stu/static/black/Shahre_Man.mp3",
+//    		    shadow: ".colorizer",
+//    		    echolizer: ".echolizer"
+//    		});
+//    	});
+
+        $('#insert').click(function () {
+            $.ajax({
+                type: 'post',
+                url: getContextPath()+'/insert.ajax',
+                data: {
+                    id:$('#insert-id').val(),
+                    name:$('#insert-name').val()
+                },
+                dataType: 'json',
+                success: function(data){
+
+                }
+            });
+        });
+        $('#delete').click(function () {
+            $.ajax({
+                type: 'post',
+                url: getContextPath()+'/delete.ajax',
+                data: {
+                    id:$('#delete-id').val()
+                },
+                dataType: 'json',
+                success: function(data){
+
+                }
+            });
+        });
+        $('#update').click(function () {
+            $.ajax({
+                type: 'post',
+                url: getContextPath()+'/update.ajax',
+                data: {
+                    id:$('#update-id').val(),
+                    name:$('#update-name').val()
+                },
+                dataType: 'json',
+                success: function(data){
+
+                }
+            });
+        });
+        $('#select').click(function () {
+            $.ajax({
+                type: 'post',
+                url: getContextPath()+'/select.ajax',
+                data: {
+                    id:$('#select-id').val()
+                },
+                dataType: 'json',
+                success: function(data){
+
+                }
+            });
+        });
     });
     </script>
 </body>

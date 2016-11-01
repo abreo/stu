@@ -1,17 +1,18 @@
 package com.nihao.dao;
 
 import com.nihao.model.Test;
+import com.nihao.redis.RedisCache;
+import com.nihao.redis.RedisEvict;
 
 public interface TestMapper {
-    int deleteByPrimaryKey(Integer id);
+    @RedisCache(type = Test.class)
+    Test selectById(String id);
 
-    int insert(Test record);
+    @RedisEvict(type = Test.class)
+    int deleteById(String id);
 
-    int insertSelective(Test record);
+    @RedisEvict(type = Test.class)
+    int update(Test test);
 
-    Test selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Test record);
-
-    int updateByPrimaryKey(Test record);
+    int insert(Test test);
 }

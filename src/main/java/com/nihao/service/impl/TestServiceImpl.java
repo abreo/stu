@@ -23,11 +23,11 @@ public class TestServiceImpl implements TestServiceI {
 
 	@Override
 	public String getTestById(Integer id) {
-		Set<String> set=new HashSet<String>();  
-		        Test test=testMapper.selectByPrimaryKey(id);
-		        String s=JSON.toJSONString(test);
-		        return JSON.toJSONString(s);
-
+//		Set<String> set=new HashSet<String>();
+//		        Test test=testMapper.selectByPrimaryKey(id);
+//		        String s=JSON.toJSONString(test);
+//		        return JSON.toJSONString(s);
+return null;
 	}
 
 }
