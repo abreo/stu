@@ -16,8 +16,15 @@
 
 	<!-- 扫描service、dao组件 -->
 	<context:component-scan base-package="com.nihao.service,com.nihao.dao,com.nihao.redis" />
-	<!-- 分解配置 jdbc.properites -->
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!--配置读取-->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:java4redis.properties</value>
+			</list>
+		</property>
+	</bean>
 
 
 	<!-- 配置数据源 -->

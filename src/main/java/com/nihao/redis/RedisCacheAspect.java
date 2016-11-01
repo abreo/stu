@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -35,7 +36,6 @@ public class RedisCacheAspect {
      * @throws Throwable
      */
     @Around("execution(* com.nihao.dao.TestMapper.select*(..))")
-    //@Around("@annotation(com.nihao.redis.RedisCache)")
     public Object cache(ProceedingJoinPoint jp) throws Throwable {
         // 得到类名、方法名和参数
         String clazzName = jp.getTarget().getClass().getName();
@@ -43,15 +43,19 @@ public class RedisCacheAspect {
         Object[] args = jp.getArgs();
 
         // 根据类名，方法名和参数生成key
-        String key = genKey(clazzName, methodName, args);
-        if (infoLog.isDebugEnabled()) {
-            infoLog.debug("生成key:{}", key);
-        }
+//        String key = genKey(clazzName, methodName, args);
+//        if (infoLog.isDebugEnabled()) {
+//            infoLog.debug("生成key:{}", key);
+//        }
 
         // 得到被代理的方法
         Method me = ((MethodSignature) jp.getSignature()).getMethod();
         // 得到被代理的方法上的注解
         Class modelType = me.getAnnotation(RedisCache.class).type();
+        String key="id";
+        for(Object arg:args){
+            key=key+":"+arg.toString();
+        }
 
         // 检查redis中是否有缓存
         String value = (String)redisTemplate.opsForHash().get(modelType.getName(), key);
@@ -98,22 +102,41 @@ public class RedisCacheAspect {
      * @return
      * @throws Throwable
      */
-    //@Around("execution(* com.nihao.dao.TestMapper.update*(..))"+
-      //      "|| execution(* com.nihao.dao.TestMapper.delete*(..))")
-    @Around("@annotation(com.nihao.redis.RedisEvict)")
+    @Around("execution(* com.nihao.dao.TestMapper.update*(..))"+
+            "|| execution(* com.nihao.dao.TestMapper.delete*(..))")
     public Object evictCache(ProceedingJoinPoint jp) throws Throwable {
 
         // 得到被代理的方法
         Method me = ((MethodSignature) jp.getSignature()).getMethod();
+        Object[] args = jp.getArgs();
         // 得到被代理的方法上的注解
         Class modelType = me.getAnnotation(RedisEvict.class).type();
+        String key="id";
+        for(Object arg:args){
+            if(arg.getClass().getName().equals("java.lang.String")){
+                key=key+":"+arg.toString();
+            }
+            else{
+                Field[] fields=arg.getClass().getDeclaredFields();
+                for(Field field:fields){
+                    field.setAccessible(true);
+                    String name=field.getName();
+                    if(name.equals("id")){
+                        Object value=field.get(arg);
+                        key=key+":"+value.toString();
+                    }
+                }
+            }
+        }
 
         if (infoLog.isDebugEnabled()) {
             infoLog.debug("清空缓存:{}", modelType.getName());
         }
 
         // 清除对应缓存
-        redisTemplate.delete(modelType.getName());
+        //redisTemplate.delete(modelType.getName());
+        redisTemplate.opsForHash().delete(modelType.getName(),key);
+
 
         return jp.proceed(jp.getArgs());
     }
